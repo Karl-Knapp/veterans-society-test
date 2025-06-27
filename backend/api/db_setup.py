@@ -204,9 +204,9 @@ def create_groups_table():
                     'AttributeType': 'S'  # String type for group name
                 },
                 {
-                    'AttributeName': 'description',
-                    'AttributeType': 'S'  # String type for group description
-                },
+                    'AttributeName': 'author',
+                    'AttributeType': 'S'  # String type for author
+                }
             ],
             GlobalSecondaryIndexes=[
                 {
