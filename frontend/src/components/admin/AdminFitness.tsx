@@ -75,7 +75,7 @@ const AdminFitness: React.FC = () => {
 
     const fetchTasks = async (user: string) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/fitness/${user}`, {
+            const response = await axios.get(`http://34.238.233.251:8000/fitness/${user}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`

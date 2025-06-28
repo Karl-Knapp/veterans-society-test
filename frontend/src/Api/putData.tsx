@@ -31,7 +31,7 @@ export const putUserData = async ({
 		formData.append(field, value);
 
 		const res = await axios.put(
-			`http://127.0.0.1:8000/users/${username}`,
+			`http://34.238.233.251:8000/users/${username}`,
 			formData,
 			{
 				headers: {
@@ -127,7 +127,7 @@ export const putPostData = async (
 		}
 
 		const response = await axios.put(
-			`http://127.0.0.1:8000/posts/${postId}`,
+			`http://34.238.233.251:8000/posts/${postId}`,
 			payload,
 			{
 				headers: {
@@ -167,7 +167,7 @@ export const putGroupData = async (
 ): Promise<GroupData> => {
 	try {
 		const response = await axios.put(
-			`http://127.0.0.1:8000/groups/${groupId}`,
+			`http://34.238.233.251:8000/groups/${groupId}`,
 			groupData,
 			{
 				headers: {
@@ -208,7 +208,7 @@ export const putGroupInfoData = async (
 		}
 
 		const response = await axios.put(
-			`http://127.0.0.1:8000/groups/${groupId}/update-info`,
+			`http://34.238.233.251:8000/groups/${groupId}/update-info`,
 			formData,
 			{
 				headers: {
@@ -314,7 +314,7 @@ export const updateUserData = async (
 		}
 
 		const response = await axios.put(
-			`http://127.0.0.1:8000/users/admin/${username}/update`,
+			`http://34.238.233.251:8000/users/admin/${username}/update`,
 			formData,
 			{
 				headers: {

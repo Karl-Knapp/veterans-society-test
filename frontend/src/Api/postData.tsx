@@ -166,7 +166,7 @@ export const postLogin = async (
 ): Promise<LoginResponse> => {
 	try {
 		const response = await axios.post<LoginResponse>(
-			"http://127.0.0.1:8000/users/login",
+			"http://34.238.233.251:8000/users/login",
 			{ username, password },
 			{ headers: { "Content-Type": "application/json" } }
 		);
@@ -209,7 +209,7 @@ export const postPostData = async (newPost: PostPostParams) => {
 		newPost.images.forEach((image) => {
 			formData.append("images", image);
 		});
-		await axios.post("http://127.0.0.1:8000/posts/", formData);
+		await axios.post("http://34.238.233.251:8000/posts/", formData);
 		return { success: true };
 	} catch (error) {
 		console.error("Failed to create post:", error);
@@ -235,7 +235,7 @@ export const postCommentData = async (
 
 	try {
 		// Send POST request to the API
-		await axios.post("http://127.0.0.1:8000/comments/", commentData);
+		await axios.post("http://34.238.233.251:8000/comments/", commentData);
 		return commentData; // Return the created comment data
 	} catch (error) {
 		console.error("Failed to add comment:", error);
@@ -279,11 +279,15 @@ export const postGroupData = async (
 			formData.append("image", groupData.image);
 		}
 
-		const response = await axios.post("http://127.0.0.1:8000/groups/", formData, {
-			headers: {
-				"Content-Type": "multipart/form-data", // This is important for file uploads
-			},
-		});
+		const response = await axios.post(
+			"http://34.238.233.251:8000/groups/",
+			formData,
+			{
+				headers: {
+					"Content-Type": "multipart/form-data", // This is important for file uploads
+				},
+			}
+		);
 
 		return response.data;
 	} catch (error) {
@@ -344,7 +348,7 @@ export const postGroupPostData = async (
 		formData.append("createdAt", post.createdAt);
 
 		const response = await axios.post(
-			`http://127.0.0.1:8000/groups/${groupId}/posts`,
+			`http://34.238.233.251:8000/groups/${groupId}/posts`,
 			formData,
 			{
 				headers: {
@@ -364,7 +368,7 @@ export const postChatCreateRoomData = async (
 	user: string | null
 ) => {
 	try {
-		await axios.post("http://127.0.0.1:8000/chat/create", {
+		await axios.post("http://34.238.233.251:8000/chat/create", {
 			room_id: roomId,
 			user: user,
 		});
@@ -377,7 +381,7 @@ export const postChatCreateRoomData = async (
 export const postLikeData = async (postId: string, username: string) => {
 	try {
 		const response = await axios.post(
-			`http://127.0.0.1:8000/posts/${postId}/like`,
+			`http://34.238.233.251:8000/posts/${postId}/like`,
 			{
 				username: username,
 			}
@@ -396,7 +400,7 @@ export const postGroupLikeData = async (
 ) => {
 	try {
 		const response = await axios.post(
-			`http://127.0.0.1:8000/groups/${groupId}/posts/${postId}/like`,
+			`http://34.238.233.251:8000/groups/${groupId}/posts/${postId}/like`,
 			{
 				username: username,
 			}
@@ -418,7 +422,7 @@ export const postGroupLikeData = async (
 export const postFitnessData = async (username: string, task_id: string) => {
 	try {
 		const response = await axios.post(
-			`http://127.0.0.1:8000/fitness/${username}/${task_id}/check`
+			`http://34.238.233.251:8000/fitness/${username}/${task_id}/check`
 		);
 		return response.data;
 	} catch (error) {
@@ -433,7 +437,7 @@ export const postFitnessAddTaskData = async (
 ) => {
 	try {
 		const response = await axios.post(
-			`http://127.0.0.1:8000/fitness/${username}/task/add`,
+			`http://34.238.233.251:8000/fitness/${username}/task/add`,
 			{
 				description: newTaskDescription,
 			},

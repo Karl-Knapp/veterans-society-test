@@ -22,7 +22,7 @@ export const getUserData = async ({
 		}
 
 		const response = await axios.get(
-			`http://127.0.0.1:8000/users/${username}/visit`,
+			`http://34.238.233.251:8000/users/${username}/visit`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export const getUserProfilePic = async (username: string) => {
 		}
 
 		const response = await axios.get(
-			`http://127.0.0.1:8000/users/pic/${username}`,
+			`http://34.238.233.251:8000/users/pic/${username}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`, // Send the token in the Authorization header
@@ -107,7 +107,7 @@ interface Comment {
 export const getCommentData = async (postId: string) => {
 	try {
 		const response = await axios.get<Comment[]>(
-			`http://127.0.0.1:8000/comments/${postId}`
+			`http://34.238.233.251:8000/comments/${postId}`
 		);
 		return response.data; // Return the fetched comments
 	} catch (error) {
@@ -134,7 +134,7 @@ export const getFilteredTopics = async (
 	try {
 		const encodedTopics = selectedTopics.join(",");
 		const response = await axios.get<Post[]>(
-			"http://127.0.0.1:8000/posts/filter/topics",
+			"http://34.238.233.251:8000/posts/filter/topics",
 			{
 				params: { topics: encodedTopics },
 			}
@@ -175,13 +175,13 @@ export const getTrendingData = async (): Promise<TrendingData> => {
 	try {
 		// Fetch trending topics
 		const topicsResponse = await axios.get(
-			"http://127.0.0.1:8000/posts/trends/trending-topics"
+			"http://34.238.233.251:8000/posts/trends/trending-topics"
 		);
 		const topicsData = topicsResponse.data;
 
 		// Fetch trending keywords
 		const keywordsResponse = await axios.get(
-			"http://127.0.0.1:8000/posts/trends/trending-keywords"
+			"http://34.238.233.251:8000/posts/trends/trending-keywords"
 		);
 		const keywordsData = keywordsResponse.data;
 
@@ -222,7 +222,7 @@ export type GroupData = {
 // Get all groups
 export const getGroupsData = async (): Promise<GroupData[]> => {
 	try {
-		const response = await axios.get(`http://127.0.0.1:8000/groups/`, {
+		const response = await axios.get(`http://34.238.233.251:8000/groups/`, {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -245,8 +245,10 @@ export const getSearchGroupsData = async (
 	try {
 		// Construct the URL for searching groups
 		const url = query
-			? `http://127.0.0.1:8000/groups/search/?query=${encodeURIComponent(query)}`
-			: `http://127.0.0.1:8000/groups/search/`;
+			? `http://34.238.233.251:8000/groups/search/?query=${encodeURIComponent(
+					query
+			  )}`
+			: `http://34.238.233.251:8000/groups/search/`;
 
 		const response = await axios.get(url, {
 			headers: {
@@ -265,7 +267,9 @@ export const getSearchGroupsData = async (
 
 export const getChatRoomsData = async (user: string | null) => {
 	try {
-		const response = await axios.get(`http://127.0.0.1:8000/chat?user=${user}`);
+		const response = await axios.get(
+			`http://34.238.233.251:8000/chat?user=${user}`
+		);
 		return response.data;
 	} catch (error) {
 		console.error("Failed to fetch chat rooms:", error);
@@ -282,7 +286,7 @@ interface MessageProp {
 
 export const getChatMessagesData = async (roomId: string) => {
 	try {
-		const response = await axios.get(`http://127.0.0.1:8000/chat/messages`, {
+		const response = await axios.get(`http://34.238.233.251:8000/chat/messages`, {
 			params: { room_id: roomId },
 		});
 		const newMessages = response.data.map((msg: MessageProp) => {
@@ -299,7 +303,7 @@ export const getChatMessagesData = async (roomId: string) => {
 
 export const getChatRoomMembersData = async (roomId: string) => {
 	try {
-		const response = await axios.get(`http://127.0.0.1:8000/chat/users`, {
+		const response = await axios.get(`http://34.238.233.251:8000/chat/users`, {
 			params: { room_id: roomId },
 		});
 		return response.data;
@@ -447,7 +451,7 @@ export const searchUsers = async (
 ): Promise<SearchUserResponse[]> => {
 	try {
 		const response = await axios.get<SearchUserResponse[]>(
-			`http://127.0.0.1:8000/users/${logged_in_username}/search?query=${query}`
+			`http://34.238.233.251:8000/users/${logged_in_username}/search?query=${query}`
 		);
 		return response.data;
 	} catch (error) {
@@ -471,7 +475,7 @@ export const getOtherUserData = async ({
 
 	try {
 		const response = await axios.get(
-			`http://127.0.0.1:8000/users/${username}/visit`,
+			`http://34.238.233.251:8000/users/${username}/visit`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`, // Send the token in the Authorization header
@@ -500,12 +504,15 @@ export const getOtherUserData = async ({
 export const getAllUsers = async (): Promise<any[]> => {
 	try {
 		const token = localStorage.getItem("authToken");
-		const response = await axios.get(`http://127.0.0.1:8000/users/admin/all`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			withCredentials: true,
-		});
+		const response = await axios.get(
+			`http://34.238.233.251:8000/users/admin/all`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				withCredentials: true,
+			}
+		);
 
 		// Return the list of users
 		return response.data;
@@ -526,7 +533,7 @@ export interface FormLink {
 export const getAllFormLinks = async (): Promise<FormLink[]> => {
 	try {
 		const response = await axios.get(
-			"http://127.0.0.1:8000/forms/get_all_forms",
+			"http://34.238.233.251:8000/forms/get_all_forms",
 			{
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("authToken")}`,
