@@ -22,6 +22,8 @@ const Navbar: React.FC = () => {
   const hoverTextColor = useColorModeValue('gray.700', 'white');
   const buttonColor = useColorModeValue('gray.500', 'gray.400');
   const profileHoverBg = useColorModeValue('gray.50', 'gray.700');
+  const buttonColorTwo = useColorModeValue('gray.500', 'gray.600')
+  const buttonHoverTwo = useColorModeValue('gray.600', 'gray.500')
 
   const handleLogout = () => {
     logout();
@@ -79,7 +81,7 @@ const Navbar: React.FC = () => {
         mb={6}
         p={3}
         borderRadius="md"
-        // bgColor={useColorModeValue('gray.50', 'gray.700')}
+        bgColor={profileHoverBg}
         boxShadow="sm"
         border="1px"
         borderColor={borderColor}
@@ -333,13 +335,13 @@ const Navbar: React.FC = () => {
             </Button>
             <Button
               onClick={() => navigate('/register')}
-              // bg={useColorModeValue('gray.500', 'gray.600')}
+              bg={buttonColorTwo}
               color="white"
               variant="solid"
               size="md"
               width="100%"
               borderRadius="md"
-              // _hover={{ bg: useColorModeValue('gray.600', 'gray.500') }}
+              _hover={{ bg: buttonHoverTwo }}
               _focus={{ boxShadow: 'none' }}
             >
               Register
