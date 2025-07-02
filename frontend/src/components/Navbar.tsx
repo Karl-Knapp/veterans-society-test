@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
         mb={6}
         p={3}
         borderRadius="md"
-        bgColor={useColorModeValue('gray.50', 'gray.700')}
+        // bgColor={useColorModeValue('gray.50', 'gray.700')}
         boxShadow="sm"
         border="1px"
         borderColor={borderColor}
@@ -333,13 +333,13 @@ const Navbar: React.FC = () => {
             </Button>
             <Button
               onClick={() => navigate('/register')}
-              bg={useColorModeValue('gray.500', 'gray.600')}
+              // bg={useColorModeValue('gray.500', 'gray.600')}
               color="white"
               variant="solid"
               size="md"
               width="100%"
               borderRadius="md"
-              _hover={{ bg: useColorModeValue('gray.600', 'gray.500') }}
+              // _hover={{ bg: useColorModeValue('gray.600', 'gray.500') }}
               _focus={{ boxShadow: 'none' }}
             >
               Register
