@@ -123,7 +123,7 @@ async def login_user(request: Request, login_data: LoginRequest):
     
     # Generate a token for the user
     token = login_manager.create_access_token(
-        data={"sub": username},
+        data={"sub": username, "role": role},
         expires=timedelta(minutes=10)
     )
 
