@@ -290,7 +290,7 @@ const Navbar: React.FC = () => {
                 boxShadow="0 1px 2px rgba(0,0,0,0.1)"
                 fontWeight="medium"
               >
-                {isVeteran ? "veteran" : "admin"}
+                {isAdmin ? "admin" : isVeteran ? "veteran" : "user"}
               </Badge>
             </Flex>
           </Flex>

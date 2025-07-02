@@ -102,7 +102,19 @@ const OtherProfile: React.FC<OtherProfileProps> = ({ otherUsername }) => {
           <Text fontWeight="bold" fontSize="3xl">
             {userData.firstName} {userData.lastName}
           </Text>
-          {userData.isVeteran ? (
+          {isAdmin ? (
+            <Badge 
+              bg={adminBadgeBg}
+              color={adminBadgeColor}
+              px={3}
+              py={1}
+              borderRadius="full"
+              fontSize="sm"
+              fontWeight="bold"
+            >
+              Admin
+            </Badge>
+          ) : userData.isVeteran ? (
             <Badge 
               bg={badgeBg}
               color={badgeColor}
@@ -118,15 +130,15 @@ const OtherProfile: React.FC<OtherProfileProps> = ({ otherUsername }) => {
             </Badge>
           ) : (
             <Badge 
-              bg={isAdmin ? adminBadgeBg : veteranBadgeBg}
-              color={isAdmin ? adminBadgeColor : 'white'}
+              bg={veteranBadgeBg}
+              color="white"
               px={3}
               py={1}
               borderRadius="full"
               fontSize="sm"
               fontWeight="bold"
             >
-              {isAdmin ? "admin" : "veteran"}
+              User
             </Badge>
           )}
           <Text fontSize="xl" color={subTextColor}>{`@${userData.username}`}</Text>
