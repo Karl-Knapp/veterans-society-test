@@ -114,18 +114,18 @@ async def login_user(request: Request, login_data: LoginRequest):
         logger.warning(f"Invalid password for user: {username}")
         raise HTTPException(status_code=400, detail="Invalid password.")
 
-    # Generate a token for the user
-    token = login_manager.create_access_token(
-        data={"sub": username},
-        expires=timedelta(minutes=10)
-    )
-
     role = "veteran"
     try:
         admin = admins_table.get_item(Key={'email': user_data.get('email')})
         role = "admin" if 'Item' in admin else "veteran"
     except ClientError as e:
         logger.error(f"This is not an admin")
+    
+    # Generate a token for the user
+    token = login_manager.create_access_token(
+        data={"sub": username},
+        expires=timedelta(minutes=10)
+    )
 
     # Return the token as JSON instead of RedirectResponse
     return {"access_token": token, "token_type": "bearer", "role": role}
