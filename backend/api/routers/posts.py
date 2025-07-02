@@ -297,7 +297,11 @@ async def delete_post(post_id: str, user: dict = Depends(login_manager)):
 
         # Allow admins to delete any post, but regular users can only delete their own posts
         if post["author"] != user["username"] and user.get("role") != "admin":
-            raise HTTPException(status_code=403, detail="Access forbidden: You are not the author of this post." + user.get("role"))
+            raise HTTPException(
+                status_code=403,
+                detail=f"Access forbidden: You are not the author of this post. Role: {user.get("role")}"
+            )
+
 
         if "images" in post:
             for image_url in post["images"]:
