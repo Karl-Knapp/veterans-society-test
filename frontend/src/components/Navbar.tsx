@@ -9,7 +9,7 @@ import ColorModeToggle from './ColorModeToggle';
 const Navbar: React.FC = () => {
   const [isDesktop] = useMediaQuery('(min-width: 50em)');
   const navigate = useNavigate();
-  const { username, logout, profileVersion } = useAuth();
+  const { username, logout, profileVersion, isAdmin } = useAuth();
   const [profilePic, setProfilePic] = useState<string>('');
   const [isVeteran, setIsVeteran] = useState<boolean>(false);
   const toast = useToast();
@@ -195,7 +195,7 @@ const Navbar: React.FC = () => {
                 Users
               </Button>
               {/* Admin Dashboard Button - Only shown for non-veterans (admins) */}
-              {!isVeteran && (
+              {isAdmin && (
                 <Button
                   leftIcon={<Settings size={18} />}
                   onClick={() => navigate(`/${username}/dashboard`)}
