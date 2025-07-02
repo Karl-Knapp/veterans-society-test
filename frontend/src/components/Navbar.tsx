@@ -242,21 +242,21 @@ const Navbar: React.FC = () => {
           >
             Resources
           </Button>
-          {username && (
-            <Button
-              leftIcon={<File size={18} />}
-              onClick={() => navigate(`/${username}/forms`)}
-              variant="ghost"
-              borderRadius="md"
-              _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-              color={buttonColor}
-              justifyContent="flex-start"
-              width="100%"
-              size="md"
-              py={5}
-            >
-              Forms
-            </Button>
+          {(
+              <Button
+                leftIcon={<File size={18} />}
+                variant="ghost"
+                onClick={() => navigate(`/${username}/forms`)}
+                borderRadius="md"
+                _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+                color={buttonColor}
+                justifyContent="flex-start"
+                width="100%"
+                size="md"
+                py={5}
+              >
+                Forms
+              </Button>
           )}
         </VStack>
       )}
