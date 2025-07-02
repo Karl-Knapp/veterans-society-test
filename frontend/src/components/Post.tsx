@@ -56,7 +56,6 @@ const Post: React.FC<PostProps> = ({ postId, author, content, topics, images, li
         }
       }
     };
-    console.log(isVeteran);
     fetchProfilePic();
   }, [author]);
 
@@ -77,7 +76,6 @@ const Post: React.FC<PostProps> = ({ postId, author, content, topics, images, li
         }
       }
     };
-    console.log("isVeteran: " + isVeteran);
     verifyVeteranStatus();
   }, [username, toast]);
 
