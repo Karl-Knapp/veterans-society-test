@@ -27,6 +27,7 @@ export const deleteGroupData = async (groupId: string): Promise<void> => {
 export const deletePostData = async (postId: string): Promise<void> => {
 	try {
 		const token = localStorage.getItem("authToken");
+		console.log("Auth Token:" + token)
 		await axios.delete(`http://34.238.233.251:8000/posts/${postId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
