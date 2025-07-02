@@ -599,7 +599,7 @@ const Dashboard: React.FC = () => {
                                     ml={4}
                                   >
                                     <Shield size={12} style={{ marginRight: '4px' }} />
-                                    {isAdmin ? "admin" : user.isVeteran ? "veteran" : "user"}
+                                    {user.isVeteran ? "veteran" : "admin"}
                                   </Badge>
                                 </Flex>
                               </Box>
