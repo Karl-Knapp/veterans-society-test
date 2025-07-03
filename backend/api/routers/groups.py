@@ -74,7 +74,7 @@ async def create_group(
             "author": author,
             "posts": []
         }
-        
+        print("group_data:", group_data)
         # Fetch image URL from Unsplash based on the group's name
         image_url = ''
         if image is not None:
