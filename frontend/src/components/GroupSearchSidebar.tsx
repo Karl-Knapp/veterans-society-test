@@ -76,6 +76,10 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 	const buttonBgColor = useColorModeValue("gray.500", "gray.600");
 	const buttonHoverBgColor = useColorModeValue("gray.600", "gray.500");
 	const itemHoverBgColor = useColorModeValue("gray.100", "gray.700");
+	const scrollbarBgColor = useColorModeValue("gray.100", "gray.600")
+	const addGroupColor = useColorModeValue("white", "gray.100")
+	const addGroupActiveColor = useColorModeValue("gray.700", "gray.400")
+
 
 	const fetchSearchResults = async () => {
 		setLoading(true);
@@ -287,7 +291,7 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 					borderRadius: "8px",
 				},
 				"&::-webkit-scrollbar-track": {
-					backgroundColor: useColorModeValue("gray.100", "gray.600"),
+					backgroundColor: scrollbarBgColor,
 					borderRadius: "8px",
 				},
 			}}
@@ -300,12 +304,12 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 			<Box flexShrink={0} mb={4}>
 				<Button
 					bgColor={buttonBgColor}
-					color={useColorModeValue("white", "gray.100")}
+					color={addGroupColor}
 					leftIcon={<Plus />}
 					onClick={() => setIsModalOpen(true)}
 					width="100%"
 					_hover={{ bg: buttonHoverBgColor, transform: "translateY(-2px)" }}
-					_active={{ bg: useColorModeValue("gray.700", "gray.400") }}
+					_active={{ bg: addGroupActiveColor }}
 					boxShadow="sm"
 					transition="all 0.2s"
 					borderRadius="md"
@@ -373,7 +377,7 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 								<HStack
 									mt={2}
 									p={2}
-									bg={useColorModeValue("gray.100", "gray.700")}
+									bg={itemHoverBgColor}
 									borderRadius="md"
 								>
 									<Text fontSize="sm" color={textColor}>
