@@ -227,7 +227,8 @@ export const postCommentData = async (
 	}
 
 	const commentData = {
-		commentId: crypto.randomUUID(),
+		// commentId: crypto.randomUUID(), Replace with better UUID generator later?
+		commentId: `${Date.now()}-${Math.floor(Math.random() * 1e9)}`,
 		postId,
 		author: username, // Replace with actual username or null
 		content: newComment.trim(),
