@@ -1,10 +1,20 @@
 from fastapi import File, UploadFile, HTTPException
+import os
 import boto3
 import uuid
 from api.config import S3_BUCKET_NAME
 import traceback
 
-s3_client = boto3.client('s3', region_name="us-east-1")
+AWS_ACCESS_KEY_ID = os.getenv('aws_access_key_id')
+AWS_SECRET_ACCESS_KEY = os.getenv('aws_secret_access_key')
+AWS_REGION = os.getenv('aws_region')
+
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    region_name=AWS_REGION
+)
 
 def upload_file_to_s3(file: UploadFile, file_name: str) -> str:
     """
