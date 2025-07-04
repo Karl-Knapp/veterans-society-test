@@ -4,7 +4,6 @@ import boto3
 import uuid
 from api.config import S3_BUCKET_NAME
 
-load_dotenv()
 AWS_ACCESS_KEY_ID = os.getenv('aws_access_key_id')
 AWS_SECRET_ACCESS_KEY = os.getenv('aws_secret_access_key')
 AWS_REGION = os.getenv('aws_region')
