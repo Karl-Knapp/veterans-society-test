@@ -228,7 +228,7 @@ export const getGroupsData = async (): Promise<GroupData[]> => {
 			},
 		});
 
-		console.log(response);
+		// console.log(response.data);
 		return response.data;
 	} catch (error: any) {
 		console.error("Error fetching groups data:", error.message);
