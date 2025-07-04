@@ -184,7 +184,10 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 			);
 
 			// Refresh the SWR cache to update the UI
-			mutate();
+			mutate((prevGroups) =>
+				prevGroups?.filter((group) => group.groupId !== groupId) ?? [],
+				false // Don't revalidate
+			);
 
 			// Show a success toast notification
 			toast({
