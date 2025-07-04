@@ -521,7 +521,7 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 							</HStack>
 						</Box>
 					))}
-					{searchResults.length === 0 && !loading && (
+					{searchResults.length === 0 && (!groups || groups.length === 0) && !loading && (
 						<Box
 							width="100%"
 							textAlign="center"
