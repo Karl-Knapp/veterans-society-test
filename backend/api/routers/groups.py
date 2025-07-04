@@ -76,13 +76,13 @@ async def create_group(
         }
         print("group_data:", group_data)
         # Fetch image URL from Unsplash based on the group's name
-        # image_url = ''
-        # if image is not None:
-        #     image_url = await upload_image("group-pictures", image)
-        # else:
-        #     image_url = fetch_image_url(name)
+        image_url = ''
+        if image is not None:
+            image_url = await upload_image("group-pictures", image)
+        else:
+            image_url = fetch_image_url(name)
 
-        # group_data["image"] = image_url  # Set the image URL
+        group_data["image"] = image_url  # Set the image URL
 
         # Store the group in DynamoDB
         groups_table.put_item(Item=group_data)
