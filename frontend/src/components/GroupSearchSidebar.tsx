@@ -51,8 +51,8 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 	mutate: externalMutate,
 }) => {
 	// Use SWR for fetching groups
-	const { mutate: swrMutate } = useSWR<Group[]>(
-		"http://34.238.233.251:8000/groups",
+	const { data: groups = [], mutate: swrMutate } = useSWR<Group[]>(
+		"http://34.238.233.251:8000/groups/",
 		fetcher
 	);
 	const mutate = externalMutate || swrMutate;
@@ -452,7 +452,8 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 			{/* Search Results */}
 			<Box overflowY="auto" flex="1">
 				<VStack align="start" spacing={3} width="100%">
-					{searchResults.map((group) => (
+					{(input.trim() ? searchResults : groups).map((group) => (
+
 						<Box
 							key={group.groupId}
 							cursor="pointer"
