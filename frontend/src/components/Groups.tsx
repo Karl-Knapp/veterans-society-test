@@ -29,7 +29,20 @@ type Group = {
 };
 
 // Fetcher function for SWR
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = async (url: string) => {
+	try {
+		const res = await fetch(url);
+		if (!res.ok) {
+			throw new Error(`HTTP error! status: ${res.status}`);
+		}
+		const data = await res.json();
+		console.log("Fetched groups:", data);
+		return data;
+	} catch (err) {
+		console.error("Fetcher error:", err);
+		throw err;
+	}
+};
 
 const Groups: React.FC = () => {
 	const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
