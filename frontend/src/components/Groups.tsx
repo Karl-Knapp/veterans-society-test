@@ -32,11 +32,11 @@ type Group = {
 const fetcher = async (url: string) => {
 	try {
 		const res = await fetch(url);
-		if (!res.ok) {
-			throw new Error(`HTTP error! status: ${res.status}`);
-		}
-		const data = await res.json();
-		console.log("Fetched groups:", data);
+		const text = await res.text();
+		console.log("Raw response text:", text);
+
+		const data = JSON.parse(text);
+		console.log("Parsed JSON:", data);
 		return data;
 	} catch (err) {
 		console.error("Fetcher error:", err);
