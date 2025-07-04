@@ -178,17 +178,17 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 			// Call the API to delete the group
 			await deleteGroupData(groupId);
 
+						// Refresh the SWR cache to update the UI
+			mutate((currentData: Group[] = []) =>
+				currentData.filter((group) => group.groupId !== groupId),
+			false);
+
 			// Update the search results by removing the deleted group
 			setSearchResults((prev) =>
 				prev.filter((group) => group.groupId !== groupId)
 			);
 
-			// Refresh the SWR cache to update the UI
-			mutate(
-				(currentData: Group[] = []) =>
-				  currentData.filter((group) => group.groupId !== groupId),
-				false // Don't revalidate with the server
-			  );
+
 
 			// Show a success toast notification
 			toast({

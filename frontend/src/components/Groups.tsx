@@ -40,8 +40,6 @@ const Groups: React.FC = () => {
 		fetcher
 	);
 
-	console.log(mutate)
-
 	// Fetch single group when selectedGroupId changes
 	const selectedGroup = groups?.find(
 		(group) => group.groupId === selectedGroupId
