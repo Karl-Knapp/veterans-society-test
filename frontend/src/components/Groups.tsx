@@ -29,20 +29,7 @@ type Group = {
 };
 
 // Fetcher function for SWR
-const fetcher = async (url: string) => {
-	try {
-		const res = await fetch(url);
-		const text = await res.text();
-		console.log("Raw response text:", text);
-
-		const data = JSON.parse(text);
-		console.log("Parsed JSON:", data);
-		return data;
-	} catch (err) {
-		console.error("Fetcher error:", err);
-		throw err;
-	}
-};
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Groups: React.FC = () => {
 	const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
@@ -52,6 +39,8 @@ const Groups: React.FC = () => {
 		"http://34.238.233.251:8000/groups",
 		fetcher
 	);
+
+	console.log(groups)
 
 	// Fetch single group when selectedGroupId changes
 	const selectedGroup = groups?.find(
