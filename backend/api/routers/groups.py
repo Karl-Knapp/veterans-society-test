@@ -168,8 +168,6 @@ def list_groups():
     try:
         response = groups_table.scan()
         groups = response.get("Items", [])
-        print(f"Fetched groups count: {len(groups)}")
-        print(f"Groups: {groups}")
         return [Group(**group) for group in groups]
     except ClientError as e:
         logger.error(e.response["Error"]["Message"])
