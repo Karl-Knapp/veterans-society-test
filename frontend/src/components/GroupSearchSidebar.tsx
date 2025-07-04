@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import useSWR from "swr";
 import {
 	Box,
@@ -50,7 +50,11 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 	setGroupId,
 	mutate: externalMutate,
 }) => {
-	// Use SWR for fetching groups
+	// Use SWR for fetching groups (all groups)
+	const { data: allGroups, error } = useSWR<Group[]>(
+		"http://34.238.233.251:8000/groups",
+		fetcher
+	);
 	const { mutate: swrMutate } = useSWR<Group[]>(
 		"http://34.238.233.251:8000/groups",
 		fetcher
@@ -76,12 +80,25 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 	const buttonBgColor = useColorModeValue("gray.500", "gray.600");
 	const buttonHoverBgColor = useColorModeValue("gray.600", "gray.500");
 	const itemHoverBgColor = useColorModeValue("gray.100", "gray.700");
-	const scrollbarBgColor = useColorModeValue("gray.100", "gray.600")
-	const addGroupColor = useColorModeValue("white", "gray.100")
-	const addGroupActiveColor = useColorModeValue("gray.700", "gray.400")
+	const scrollbarBgColor = useColorModeValue("gray.100", "gray.600");
+	const addGroupColor = useColorModeValue("white", "gray.100");
+	const addGroupActiveColor = useColorModeValue("gray.700", "gray.400");
 
+	// When allGroups load or input changes, set searchResults to allGroups if input is empty
+	useEffect(() => {
+		if (allGroups && !input.trim()) {
+			setSearchResults(allGroups);
+		}
+	}, [allGroups, input]);
 
 	const fetchSearchResults = async () => {
+		if (!input.trim()) {
+			// If search input is empty, show all groups
+			if (allGroups) {
+				setSearchResults(allGroups);
+			}
+			return;
+		}
 		setLoading(true);
 		try {
 			const searchedGroups = await getSearchGroupsData(input);
@@ -374,12 +391,7 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 
 							{/* Display selected image filename */}
 							{image && (
-								<HStack
-									mt={2}
-									p={2}
-									bg={itemHoverBgColor}
-									borderRadius="md"
-								>
+								<HStack mt={2} p={2} bg={itemHoverBgColor} borderRadius="md">
 									<Text fontSize="sm" color={textColor}>
 										{image.name}
 									</Text>

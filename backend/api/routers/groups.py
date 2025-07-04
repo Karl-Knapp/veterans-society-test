@@ -80,7 +80,8 @@ async def create_group(
         if image is not None:
             image_url = await upload_image("group-pictures", image)
         else:
-            image_url = fetch_image_url(name)
+            # image_url = fetch_image_url(name)
+            image_url = ""
 
         group_data["image"] = image_url  # Set the image URL
 
