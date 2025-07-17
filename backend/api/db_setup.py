@@ -71,7 +71,6 @@ def create_users_table():
         else:
             raise e
 
-
 def create_posts_table():
     # Delete existing table if it exists
     try:
@@ -109,7 +108,6 @@ def create_posts_table():
     except Exception as e:
         print(f"Error creating table: {e}")
         raise e
-
 
 def create_comments_table():
     try:

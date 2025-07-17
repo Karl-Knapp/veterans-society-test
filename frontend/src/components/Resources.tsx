@@ -96,66 +96,104 @@ const Resources: React.FC = () => {
   useEffect(() => {
     // Get user's location when component mounts
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const location = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          };
-          setUserLocation(location);
+      // navigator.geolocation.getCurrentPosition( UNCOMMENT later when on official website
+      //   async (position) => {
+      //     const location = {
+      //       lat: position.coords.latitude,
+      //       lon: position.coords.longitude,
+      //     };
+      //     setUserLocation(location);
 
-          try {
-            const veteranResources = await getVeteranResources(
-              location.lat,
-              location.lon
-            );
-            setResources(veteranResources);
-            resourcesRef.current = veteranResources; // Store in ref for background updates
-            setIsLoading(false);
+      //     try {
+      //       const veteranResources = await getVeteranResources(
+      //         location.lat,
+      //         location.lon
+      //       );
+      //       setResources(veteranResources);
+      //       resourcesRef.current = veteranResources; // Store in ref for background updates
+      //       setIsLoading(false);
 
-            // Show toast if no resource was found
-            if (veteranResources.length == 0) {
-              toast({
-                title: "No Resources Found",
-                description:
-                  "No veteran resources found in your immediate area. Try again later or contact VA support for assistance.",
-                status: "info",
-                duration: 5000,
-                isClosable: true,
-              });
-            }
-          } catch (error) {
-            console.error("Failed to fetch veteran resources:", error);
-            setError(
-              "Failed to fetch veteran resources. Please try again later."
-            );
-            setIsLoading(false);
+      //       // Show toast if no resource was found
+      //       if (veteranResources.length == 0) {
+      //         toast({
+      //           title: "No Resources Found",
+      //           description:
+      //             "No veteran resources found in your immediate area. Try again later or contact VA support for assistance.",
+      //           status: "info",
+      //           duration: 5000,
+      //           isClosable: true,
+      //         });
+      //       }
+      //     } catch (error) {
+      //       console.error("Failed to fetch veteran resources:", error);
+      //       setError(
+      //         "Failed to fetch veteran resources. Please try again later."
+      //       );
+      //       setIsLoading(false);
+      //       toast({
+      //         title: "Error",
+      //         description:
+      //           "Failed to fetch veteran resources. Please try again later.",
+      //         status: "error",
+      //         duration: 5000,
+      //         isClosable: true,
+      //       });
+      //     }
+      //   },
+      //   (error) => {
+      //     console.error("Geolocation error:", error);
+      //     setError(
+      //       "Location access denied. Please enable location services to find nearby veteran resources."
+      //     );
+      //     setIsLoading(false);
+      //     toast({
+      //       title: "Location Access Denied",
+      //       description:
+      //         "Please enable location services to find nearby veteran resources.",
+      //       status: "error",
+      //       duration: 5000,
+      //       isClosable: true,
+      //     });
+      //   }
+      // );
+    
+      const mockLocation = {
+        lat: 40.213,
+        lon: -77.008,
+      };
+      setUserLocation(mockLocation);
+    
+      getVeteranResources(mockLocation.lat, mockLocation.lon)
+        .then((veteranResources) => {
+          setResources(veteranResources);
+          resourcesRef.current = veteranResources;
+          setIsLoading(false);
+    
+          if (veteranResources.length === 0) {
             toast({
-              title: "Error",
+              title: "No Resources Found",
               description:
-                "Failed to fetch veteran resources. Please try again later.",
-              status: "error",
+                "No veteran resources found in the Mechanicsburg, PA area. Try again later or contact VA support for assistance.",
+              status: "info",
               duration: 5000,
               isClosable: true,
             });
           }
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setError(
-            "Location access denied. Please enable location services to find nearby veteran resources."
-          );
+        })
+        .catch((error) => {
+          console.error("Failed to fetch veteran resources:", error);
+          setError("Failed to fetch veteran resources. Please try again later.");
           setIsLoading(false);
           toast({
-            title: "Location Access Denied",
+            title: "Error",
             description:
-              "Please enable location services to find nearby veteran resources.",
+              "Failed to fetch veteran resources. Please try again later.",
             status: "error",
             duration: 5000,
             isClosable: true,
           });
-        }
-      );
+        });
+    
     } else {
       setError("Geolocation is not supported by your browser.");
       setIsLoading(false);
