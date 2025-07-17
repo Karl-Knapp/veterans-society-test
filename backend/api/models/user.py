@@ -31,10 +31,6 @@ class UserCreate(BaseModel):
                 raise ValueError('Weight must be a positive number.')
         return v
     
-    @validator("username")
-    def lowercase_username(cls, v):
-        return v.lower()
-
 class UserResponse(BaseModel):
     username: Optional[str]
     firstName: Optional[str]
@@ -62,9 +58,6 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-    @validator("username")
-    def lowercase_username(cls, v):
-        return v.lower()
 # UserUpdateRequest model for updating user data
 class UserUpdateRequest(BaseModel):
     firstName: Optional[str] = None
