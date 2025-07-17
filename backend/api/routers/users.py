@@ -88,88 +88,12 @@ def get_password_hash(password: str) -> str:
 
 #     return user_item
 
-@router.post("/register", response_model=UserResponse)
-async def register_user(user: UserCreate):
-    # Normalize username
-    user.username = user.username.lower()
-
-    # Check if the username already exists
-    logger.info(f"Attempt to register user: {user.username}")
-    try:
-        response = users_table.get_item(Key={'username': user.username})
-    except ClientError as e:
-        logger.error(f"Failed to query DynamoDB: {e}")
-        err_code = e.response['Error']['Code']
-        if err_code == 'ResourceNotFoundException':
-            raise HTTPException(status_code=500, detail="User table does not exist")
-        raise HTTPException(status_code=500, detail="Internal server error.")
-    else:
-        if 'Item' in response:
-            raise HTTPException(status_code=400, detail="Username already exists.")
-
-    # Check if email already exists in users table
-    if user.email:
-        try:
-            user_email_check = users_table.scan(
-                FilterExpression=Attr('email').eq(user.email)
-            )
-            if user_email_check.get("Items"):
-                raise HTTPException(status_code=400, detail="Email already registered as a user.")
-        except ClientError as e:
-            logger.error(f"Failed to scan users table for email: {e}")
-            raise HTTPException(status_code=500, detail="Failed to check email uniqueness.")
-
-        # Check if email exists in admins table
-        try:
-            admin_email_check = admins_table.get_item(Key={'email': user.email})
-            if 'Item' in admin_email_check:
-                raise HTTPException(status_code=400, detail="Email already registered as an admin.")
-        except ClientError as e:
-            logger.error(f"Failed to query admins table for email: {e}")
-            raise HTTPException(status_code=500, detail="Failed to check admin email uniqueness.")
-
-    hashed_password = get_password_hash(user.password)
-
-    # Prepare the user item
-    user_item = {
-        'username': user.username,
-        'password': hashed_password,
-        'firstName': user.firstName,
-        'lastName': user.lastName,
-        'isVeteran': user.isVeteran,
-        'interests': user.interests
-    }
-
-    if user.email:
-        user_item['email'] = user.email
-
-    if user.phoneNumber:
-        user_item['phoneNumber'] = user.phoneNumber
-
-    if user.isVeteran:
-        user_item['employmentStatus'] = user.employmentStatus
-        user_item['workLocation'] = user.workLocation
-        user_item['liveLocation'] = user.liveLocation
-        user_item['height'] = Decimal(user.height) if user.height is not None else None
-        user_item['weight'] = Decimal(user.weight) if user.weight is not None else None
-
-    try:
-        users_table.put_item(Item=user_item)
-    except ClientError as e:
-        logger.error(f"Failed to save user to DynamoDB: {e}")
-        error_code = e.response['Error']['Code']
-        if error_code == 'ConditionalCheckFailedException':
-            raise HTTPException(status_code=400, detail="Failed to register user due to a condition check failure.")
-        raise HTTPException(status_code=500, detail="Failed to save user data.")
-
-    return user_item
-
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 @router.post("/login")
 async def login_user(request: Request, login_data: LoginRequest):
-    username = login_data.username.lower()
+    username = login_data.username
     password = login_data.password
     logger.info(f"Attempt to login user: {username}")
     
