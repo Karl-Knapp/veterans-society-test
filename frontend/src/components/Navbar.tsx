@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
     }
   }, [username, toast]);
 
-  return (
+  return (isDesktop ? (
     <Box
       as="nav"
       bg={bgColor}
@@ -102,33 +102,102 @@ const Navbar: React.FC = () => {
         >
           Veterans Society
         </Text>
-        
       </Flex>
-
+    
       {/* Navigation Buttons */}
-      {isDesktop && (
-        <VStack align="start" spacing={2} width="100%" flex="1">
-          
-          <Button
-            leftIcon={<Home size={18} />}
-            onClick={() => navigate(`/`)}
-            variant="ghost"
-            borderRadius="md"
-            _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-            color={buttonColor}
-            justifyContent="flex-start"
-            width="100%"
-            size="md"
-            py={5}
-          >
-            Main Page
-          </Button>
-
-          {username && (
-            <>
+      <VStack align="start" spacing={2} width="100%" flex="1">
+        <Button
+          leftIcon={<Home size={18} />}
+          onClick={() => navigate(`/`)}
+          variant="ghost"
+          borderRadius="md"
+          _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+          color={buttonColor}
+          justifyContent="flex-start"
+          width="100%"
+          size="md"
+          py={5}
+        >
+          Main Page
+        </Button>
+    
+        {username && (
+          <>
+            <Button
+              leftIcon={<Grid size={18} />}
+              onClick={() => navigate(`/${username}/feed`)}
+              variant="ghost"
+              borderRadius="md"
+              _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+              color={buttonColor}
+              justifyContent="flex-start"
+              width="100%"
+              size="md"
+              py={5}
+            >
+              Feed
+            </Button>
+            <Button
+              leftIcon={<MessageCircle size={18} />}
+              onClick={() => navigate(`/${username}/chat`)}
+              variant="ghost"
+              borderRadius="md"
+              _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+              color={buttonColor}
+              justifyContent="flex-start"
+              width="100%"
+              size="md"
+              py={5}
+            >
+              Chat
+            </Button>
+            <Button
+              leftIcon={<Users size={18} />}
+              onClick={() => navigate(`/${username}/groups`)}
+              variant="ghost"
+              borderRadius="md"
+              _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+              color={buttonColor}
+              justifyContent="flex-start"
+              width="100%"
+              size="md"
+              py={5}
+            >
+              Groups
+            </Button>
+            <Button
+              leftIcon={<Activity size={18} />}
+              onClick={() => navigate(`/${username}/fitness`)}
+              variant="ghost"
+              borderRadius="md"
+              _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+              color={buttonColor}
+              justifyContent="flex-start"
+              width="100%"
+              size="md"
+              py={5}
+            >
+              Tasks
+            </Button>
+            <Button
+              leftIcon={<Search size={18} />}
+              onClick={() => navigate(`/${username}/search`)}
+              variant="ghost"
+              borderRadius="md"
+              _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+              color={buttonColor}
+              justifyContent="flex-start"
+              width="100%"
+              size="md"
+              py={5}
+            >
+              Users
+            </Button>
+    
+            {!isVeteran && (
               <Button
-                leftIcon={<Grid size={18} />}
-                onClick={() => navigate(`/${username}/feed`)}
+                leftIcon={<Settings size={18} />}
+                onClick={() => navigate(`/${username}/dashboard`)}
                 variant="ghost"
                 borderRadius="md"
                 _hover={{ bg: hoverBgColor, color: hoverTextColor }}
@@ -138,143 +207,69 @@ const Navbar: React.FC = () => {
                 size="md"
                 py={5}
               >
-                Feed
+                Dashboard
               </Button>
-              <Button
-                leftIcon={<MessageCircle size={18} />}
-                onClick={() => navigate(`/${username}/chat`)}
-                variant="ghost"
-                borderRadius="md"
-                _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-                color={buttonColor}
-                justifyContent="flex-start"
-                width="100%"
-                size="md"
-                py={5}
-              >
-                Chat
-              </Button>
-              <Button
-                leftIcon={<Users size={18} />}
-                onClick={() => navigate(`/${username}/groups`)}
-                variant="ghost"
-                borderRadius="md"
-                _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-                color={buttonColor}
-                justifyContent="flex-start"
-                width="100%"
-                size="md"
-                py={5}
-              >
-                Groups
-              </Button>
-              <Button
-                leftIcon={<Activity size={18} />}
-                onClick={() => navigate(`/${username}/fitness`)}
-                variant="ghost"
-                borderRadius="md"
-                _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-                color={buttonColor}
-                justifyContent="flex-start"
-                width="100%"
-                size="md"
-                py={5}
-              >
-                Tasks
-              </Button>
-              <Button
-                leftIcon={<Search size={18} />}
-                onClick={() => navigate(`/${username}/search`)}
-                variant="ghost"
-                borderRadius="md"
-                _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-                color={buttonColor}
-                justifyContent="flex-start"
-                width="100%"
-                size="md"
-                py={5}
-              >
-                Users
-              </Button>
-              {/* Admin Dashboard Button - Only shown for non-veterans (admins) */}
-              {!isVeteran && (
-                <Button
-                  leftIcon={<Settings size={18} />}
-                  onClick={() => navigate(`/${username}/dashboard`)}
-                  variant="ghost"
-                  borderRadius="md"
-                  _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-                  color={buttonColor}
-                  justifyContent="flex-start"
-                  width="100%"
-                  size="md"
-                  py={5}
-                >
-                  Dashboard
-                </Button>
-              )}
-            </>
-          )}
-
-          <Button
-            leftIcon={<CreditCard size={18} />}
-            onClick={() => navigate(`/donate`)}
-            variant="ghost"
-            borderRadius="md"
-            _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-            color={buttonColor}
-            justifyContent="flex-start"
-            width="100%"
-            size="md"
-            py={5}
-          >
-            Donate
-          </Button>
-          <Button
-            leftIcon={<BookOpen size={18} />}
-            onClick={() => navigate(`/resources`)}
-            variant="ghost"
-            borderRadius="md"
-            _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-            color={buttonColor}
-            justifyContent="flex-start"
-            width="100%"
-            size="md"
-            py={5}
-          >
-            Resources
-          </Button>
-          {(
-              <Button
-                leftIcon={<File size={18} />}
-                variant="ghost"
-                onClick={() => navigate(`/${username}/forms`)}
-                borderRadius="md"
-                _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-                color={buttonColor}
-                justifyContent="flex-start"
-                width="100%"
-                size="md"
-                py={5}
-              >
-                Forms
-              </Button>
-          )}
-        </VStack>
-      )}
-
+            )}
+          </>
+        )}
+    
+        <Button
+          leftIcon={<CreditCard size={18} />}
+          onClick={() => navigate(`/donate`)}
+          variant="ghost"
+          borderRadius="md"
+          _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+          color={buttonColor}
+          justifyContent="flex-start"
+          width="100%"
+          size="md"
+          py={5}
+        >
+          Donate
+        </Button>
+        <Button
+          leftIcon={<BookOpen size={18} />}
+          onClick={() => navigate(`/resources`)}
+          variant="ghost"
+          borderRadius="md"
+          _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+          color={buttonColor}
+          justifyContent="flex-start"
+          width="100%"
+          size="md"
+          py={5}
+        >
+          Resources
+        </Button>
+        <Button
+          leftIcon={<File size={18} />}
+          variant="ghost"
+          onClick={() => navigate(`/${username}/forms`)}
+          borderRadius="md"
+          _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+          color={buttonColor}
+          justifyContent="flex-start"
+          width="100%"
+          size="md"
+          py={5}
+        >
+          Forms
+        </Button>
+      </VStack>
+    
       {/* Profile and Logout */}
-      {isDesktop && username && (
+      {username && (
         <Box width="100%" mt="auto" pt={4} borderTop="1px" borderColor={borderColor}>
-          
-          <Flex align="center" mb={3} p={2} borderRadius="md" _hover={{ bg: profileHoverBg }}
-            onClick={() => navigate(`/${username}/users`)} cursor="pointer">
-            <Avatar
-              size="sm"
-              name={username}
-              src={profilePic}
-              mr={3}
-            />
+          <Flex
+            align="center"
+            mb={3}
+            p={2}
+            borderRadius="md"
+            _hover={{ bg: profileHoverBg }}
+            onClick={() => navigate(`/${username}/users`)}
+            cursor="pointer"
+          >
+            <Avatar size="sm" name={username} src={profilePic} mr={3} />
             <Flex direction="column">
               <Text fontSize="sm" fontWeight="medium" color={textColor} noOfLines={1}>
                 {username}
@@ -309,16 +304,15 @@ const Navbar: React.FC = () => {
             Logout
           </Button>
           <Box mt={2} display="flex" justifyContent="center">
-              <ColorModeToggle />
-            </Box>
+            <ColorModeToggle />
+          </Box>
         </Box>
       )}
-
+    
       {/* Register and Login Buttons */}
-      {isDesktop && !username && (
+      {!username && (
         <Box width="100%" mt="auto">
           <VStack spacing={3} width="100%">
-            
             <Button
               onClick={() => navigate('/login')}
               variant="outline"
@@ -352,21 +346,17 @@ const Navbar: React.FC = () => {
           </VStack>
         </Box>
       )}
-
-      {/* Mobile View */}
-      {!isDesktop && (
-        <IconButton
-          aria-label="Open Menu"
-          variant="ghost"
-          icon={<LogIn size={20} />}
-          color={buttonColor}
-          _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-        />
-      )}
-
-      
     </Box>
+  ) : (
+    <IconButton
+      aria-label="Open Menu"
+      variant="ghost"
+      icon={<LogIn size={20} />}
+      color={buttonColor}
+      _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+    />
+  )
   );
-};
+}
 
 export default Navbar;
