@@ -34,7 +34,7 @@ function App() {
             <Box width="200px" flexShrink={0} height="100vh" position="fixed" left={0} top={0}>
               <Navbar />
             </Box>
-            <Box flex="1" height="100vh" overflowY="auto" marginLeft="200px">
+            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, md: '200px' }}>
               <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Home />} />
