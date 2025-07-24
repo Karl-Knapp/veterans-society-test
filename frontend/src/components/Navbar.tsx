@@ -354,28 +354,16 @@ const Navbar: React.FC = () => {
       )}
     </Box>
   ) : (
-    <>
-    {/* Floating Button to Open Drawer */}
-    <Box
-      as="nav"
-      position="fixed"
-      bottom="4"
-      left="4"
-      zIndex="overlay"
-    >
-      <IconButton
-        aria-label="Open Menu"
-        variant="solid"
-        icon={<Grid size={20} />}
-        colorScheme="blue"
-        onClick={onOpen}
-        borderRadius="full"
-        boxShadow="lg"
+      <>
+    <IconButton
+  aria-label="Open Menu"
+  variant="ghost"
+  icon={<LogIn size={20} />}
+  color={buttonColor}
+  _hover={{ bg: hoverBgColor, color: hoverTextColor }}
+  onClick={onOpen}
       />
-    </Box>
-  
-    {/* The Drawer */}
-    <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent bg={bgColor}>
         <DrawerHeader borderBottomWidth="1px">Menu</DrawerHeader>
@@ -405,18 +393,7 @@ const Navbar: React.FC = () => {
                 >
                   Feed
                 </Button>
-                <Button
-                  leftIcon={<MessageCircle size={18} />}
-                  onClick={() => {
-                    navigate(`/${username}/chat`);
-                    onClose();
-                  }}
-                  variant="ghost"
-                  width="100%"
-                >
-                  Chat
-                </Button>
-                {/* Add other user options like Groups, Tasks, etc. */}
+                {/* Add more buttons here, like Chat, Groups, etc. */}
               </>
             )}
             {!username && (
@@ -447,9 +424,8 @@ const Navbar: React.FC = () => {
           </VStack>
         </DrawerBody>
       </DrawerContent>
-    </Drawer>
-  </>
-  
+        </Drawer>
+        </>
   )
   );
 }
