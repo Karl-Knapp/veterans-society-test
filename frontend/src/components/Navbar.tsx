@@ -1,9 +1,4 @@
-import { Box, VStack, useMediaQuery, Image, Avatar, Button, IconButton, Flex, Text, Badge, useToast, useColorModeValue, Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  useDisclosure, } from '@chakra-ui/react';
+import { Box, VStack, useMediaQuery, Image, Avatar, Button, Flex, Text, Badge, useToast, useColorModeValue } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Auth/Auth';
 import { useEffect, useState } from 'react';
@@ -18,7 +13,6 @@ const Navbar: React.FC = () => {
   const [profilePic, setProfilePic] = useState<string>('');
   const [isVeteran, setIsVeteran] = useState<boolean>(false);
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure(); //Mobile Navbar
 
   const bgColor = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
@@ -355,76 +349,6 @@ const Navbar: React.FC = () => {
     </Box>
   ) : (
       <>
-    <IconButton
-  aria-label="Open Menu"
-  variant="ghost"
-  icon={<LogIn size={20} />}
-  color={buttonColor}
-  _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-  onClick={onOpen}
-      />
-      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-      <DrawerOverlay />
-      <DrawerContent bg={bgColor}>
-        <DrawerHeader borderBottomWidth="1px">Menu</DrawerHeader>
-        <DrawerBody>
-          <VStack align="start" spacing={4}>
-            <Button
-              leftIcon={<Home size={18} />}
-              onClick={() => {
-                navigate(`/`);
-                onClose();
-              }}
-              variant="ghost"
-              width="100%"
-            >
-              Main Page
-            </Button>
-            {username && (
-              <>
-                <Button
-                  leftIcon={<Grid size={18} />}
-                  onClick={() => {
-                    navigate(`/${username}/feed`);
-                    onClose();
-                  }}
-                  variant="ghost"
-                  width="100%"
-                >
-                  Feed
-                </Button>
-                {/* Add more buttons here, like Chat, Groups, etc. */}
-              </>
-            )}
-            {!username && (
-              <>
-                <Button
-                  onClick={() => {
-                    navigate('/login');
-                    onClose();
-                  }}
-                  leftIcon={<LogIn size={16} />}
-                  variant="outline"
-                  width="100%"
-                >
-                  Login
-                </Button>
-                <Button
-                  onClick={() => {
-                    navigate('/register');
-                    onClose();
-                  }}
-                  colorScheme="blue"
-                  width="100%"
-                >
-                  Register
-                </Button>
-              </>
-            )}
-          </VStack>
-        </DrawerBody>
-      </DrawerContent>
-        </Drawer>
         </>
   )
   );

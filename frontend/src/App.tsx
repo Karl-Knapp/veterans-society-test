@@ -7,6 +7,7 @@ import { AuthProvider } from './Auth/Auth';
 import { ChakraProvider, Box, Flex } from '@chakra-ui/react';
 import ProtectedRoute from './components/ProtectedRoute';
 import Forms from './components/forms/Forms';
+import DrawerNav from './components/DrawerNav';
 
 // Lazy imports
 const Home = lazy(() => import('./components/Home'));
@@ -31,9 +32,21 @@ function App() {
       <ChakraProvider>
         <AuthProvider>
           <Flex height="100vh" width="100vw" overflow="hidden">
-            <Box width="200px" flexShrink={0} height="100vh" position="fixed" left={0} top={0}>
+          <Box 
+            width={{ base: 0, md: "200px" }}
+            display={{ base: "none", md: "block" }}
+            flexShrink={0}
+            height="100vh"
+            position="fixed"
+            left={0}
+            top={0}
+            bg="gray.800"
+            >
               <Navbar />
             </Box>
+            
+            <DrawerNav />
+
             <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, md: '200px' }}>
               <Suspense fallback={<Loading />}>
                 <Routes>
