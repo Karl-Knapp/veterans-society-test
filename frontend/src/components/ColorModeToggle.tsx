@@ -22,7 +22,7 @@ const ColorModeToggle: React.FC = () => {
       }}
       width="100%"
       size="md"
-      justifyContent="flex-start"
+      // justifyContent="flex-start"
     >
       {useColorModeValue('Dark Mode', 'Light Mode')}
     </Button>
