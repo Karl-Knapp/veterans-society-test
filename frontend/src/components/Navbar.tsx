@@ -305,6 +305,7 @@ const Navbar: React.FC = () => {
             color={subTextColor}
             width="100%"
             size="md"
+            justifyContent="flex-start"
           >
             Logout
           </Button>
