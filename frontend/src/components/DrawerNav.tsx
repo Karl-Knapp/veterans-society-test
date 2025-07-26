@@ -108,9 +108,21 @@ const DrawerNav: React.FC = () => {
             <Avatar size="sm" name={username} src={profilePic} mr={3} />
             <Flex direction="column">
               <Text fontSize="sm" fontWeight="medium" color={textColor} noOfLines={1}>{username}</Text>
-              <Badge bg={isVeteran ? "gray.700" : "black"} color="white" fontSize="2xs" variant="solid" borderRadius="full" px={1.5} py={0.5}>
-                {isVeteran ? "veteran" : "admin"}
-              </Badge>
+              <Badge
+  bg={isVeteran ? "gray.700" : "black"}
+  color="white"
+  fontSize="2xs"
+  variant="solid"
+  borderRadius="full"
+  px={1.5}
+  py={0.5}
+  minW="auto"
+  maxW="fit-content"
+  boxShadow="0 1px 2px rgba(0,0,0,0.1)"
+  fontWeight="medium"
+>
+  {isVeteran ? "veteran" : "admin"}
+</Badge>
             </Flex>
           </Flex>
           <Button onClick={handleLogout} leftIcon={<LogOut size={18} />} variant="ghost" borderRadius="md" _hover={{ bg: hoverBgColor, color: hoverTextColor }}
