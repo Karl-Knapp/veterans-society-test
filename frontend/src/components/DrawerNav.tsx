@@ -172,7 +172,7 @@ const DrawerNav: React.FC = () => {
             <DrawerOverlay />
             <DrawerContent bg={bgColor}>
               <DrawerBody display="flex" flexDirection="column" py={4}>
-                <Flex align="center" mb={6}>
+                <Flex align="center" mb={6} p={3} borderRadius="md" bgColor={profileHoverBg} boxShadow="sm" border="1px" borderColor={borderColor}>
                   <Image src="/vite.png" alt="Veterans Society" boxSize="36px" mr={3} borderRadius="full" />
                   <Text fontWeight="bold" fontSize="lg" color={textColor}>Veterans Society</Text>
                 </Flex>
