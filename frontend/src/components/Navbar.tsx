@@ -1,13 +1,18 @@
-import { Box, VStack, useMediaQuery, Image, Avatar, Button, Flex, Text, Badge, useToast, useColorModeValue } from '@chakra-ui/react';
+import {
+  Box, VStack, Image, Avatar, Button, Flex, Text, Badge, useToast,
+  useColorModeValue
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Auth/Auth';
 import { useEffect, useState } from 'react';
 import { getUserProfilePic, getUserData } from '../Api/getData';
-import { LogOut, LogIn, Home, Users, MessageCircle, Grid, Activity, Search, CreditCard, BookOpen, Settings, File } from 'react-feather';
+import {
+  LogOut, LogIn, Home, Users, MessageCircle, Grid, Activity, Search,
+  CreditCard, BookOpen, Settings, File
+} from 'react-feather';
 import ColorModeToggle from './ColorModeToggle';
 
 const Navbar: React.FC = () => {
-  const [isDesktop] = useMediaQuery('(min-width: 50em)');
   const navigate = useNavigate();
   const { username, logout, profileVersion } = useAuth();
   const [profilePic, setProfilePic] = useState<string>('');
@@ -22,8 +27,8 @@ const Navbar: React.FC = () => {
   const hoverTextColor = useColorModeValue('gray.700', 'white');
   const buttonColor = useColorModeValue('gray.500', 'gray.400');
   const profileHoverBg = useColorModeValue('gray.50', 'gray.700');
-  const buttonColorTwo = useColorModeValue('gray.500', 'gray.600')
-  const buttonHoverTwo = useColorModeValue('gray.600', 'gray.500')
+  const buttonColorTwo = useColorModeValue('gray.500', 'gray.600');
+  const buttonHoverTwo = useColorModeValue('gray.600', 'gray.500');
 
   const handleLogout = () => {
     logout();
@@ -58,7 +63,7 @@ const Navbar: React.FC = () => {
     }
   }, [username, toast]);
 
-  return (isDesktop ? (
+  return (
     <Box
       as="nav"
       bg={bgColor}
@@ -88,7 +93,7 @@ const Navbar: React.FC = () => {
       >
         <Image
           src="/vite.png"
-          alt="Veterans Society"
+          alt="BTH Fitness"
           boxSize="36px"
           mr={3}
           borderRadius="full"
@@ -100,10 +105,10 @@ const Navbar: React.FC = () => {
           color={textColor}
           letterSpacing="tight"
         >
-          Veterans Society
+          BTH Fitness
         </Text>
       </Flex>
-    
+
       {/* Navigation Buttons */}
       <VStack align="start" spacing={2} width="100%" flex="1">
         <Button
@@ -120,7 +125,7 @@ const Navbar: React.FC = () => {
         >
           Main Page
         </Button>
-    
+
         {username && (
           <>
             <Button
@@ -193,7 +198,7 @@ const Navbar: React.FC = () => {
             >
               Users
             </Button>
-    
+
             {!isVeteran && (
               <Button
                 leftIcon={<Settings size={18} />}
@@ -212,7 +217,7 @@ const Navbar: React.FC = () => {
             )}
           </>
         )}
-    
+
         <Button
           leftIcon={<CreditCard size={18} />}
           onClick={() => navigate(`/donate`)}
@@ -256,7 +261,7 @@ const Navbar: React.FC = () => {
           Forms
         </Button>
       </VStack>
-    
+
       {/* Profile and Logout */}
       {username && (
         <Box width="100%" mt="auto" pt={4} borderTop="1px" borderColor={borderColor}>
@@ -308,7 +313,7 @@ const Navbar: React.FC = () => {
           </Box>
         </Box>
       )}
-    
+
       {/* Register and Login Buttons */}
       {!username && (
         <Box width="100%" mt="auto">
@@ -347,11 +352,7 @@ const Navbar: React.FC = () => {
         </Box>
       )}
     </Box>
-  ) : (
-      <>
-        </>
-  )
   );
-}
+};
 
 export default Navbar;

@@ -1,5 +1,5 @@
 import {
-  Box, VStack, useMediaQuery, Image, Avatar, Button, Flex, Text, Badge, useToast,
+  Box, VStack, Image, Avatar, Button, Flex, Text, Badge, useToast,
   useColorModeValue, Drawer, DrawerOverlay, DrawerContent, DrawerBody, IconButton, useDisclosure
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,6 @@ import {
 import ColorModeToggle from './ColorModeToggle';
 
 const DrawerNav: React.FC = () => {
-  const [isDesktop] = useMediaQuery('(min-width: 50em)');
   const navigate = useNavigate();
   const { username, logout, profileVersion } = useAuth();
   const [profilePic, setProfilePic] = useState<string>('');
@@ -49,7 +48,6 @@ const DrawerNav: React.FC = () => {
         }
       }
     };
-
     fetchProfilePic();
   }, [username, profileVersion]);
 
@@ -66,10 +64,20 @@ const DrawerNav: React.FC = () => {
     }
   }, [username, toast]);
 
+  const btnProps = {
+    variant: "ghost",
+    borderRadius: "md",
+    _hover: { bg: hoverBgColor, color: hoverTextColor },
+    color: buttonColor,
+    justifyContent: "flex-start",
+    width: "100%",
+    size: "md",
+    py: 5
+  };
+
   const NavButtons = () => (
     <VStack align="start" spacing={2} width="100%" flex="1">
-      <Button leftIcon={<Home size={18} />} onClick={() => { navigate(`/`); onClose(); }} variant="ghost" borderRadius="md"
-        _hover={{ bg: hoverBgColor, color: hoverTextColor }} color={buttonColor} justifyContent="flex-start" width="100%" size="md" py={5}>
+      <Button leftIcon={<Home size={18} />} onClick={() => { navigate(`/`); onClose(); }} {...btnProps}>
         Main Page
       </Button>
       {username && (
@@ -131,58 +139,32 @@ const DrawerNav: React.FC = () => {
     </Box>
   );
 
-  const btnProps = {
-    variant: "ghost",
-    borderRadius: "md",
-    _hover: { bg: hoverBgColor, color: hoverTextColor },
-    color: buttonColor,
-    justifyContent: "flex-start",
-    width: "100%",
-    size: "md",
-    py: 5
-  };
-
   return (
     <>
-      {isDesktop ? (
-        <Box as="nav" bg={bgColor} boxShadow="lg" width="200px" height="100vh" position="fixed" left={0} top={0} py={4} px={3}
-          borderRight="1px" borderColor={borderColor} display="flex" flexDirection="column">
-          {/* Desktop Sidebar */}
-          <Flex align="center" mb={6} p={3} borderRadius="md" bgColor={profileHoverBg} boxShadow="sm" border="1px" borderColor={borderColor}>
-            <Image src="/vite.png" alt="Veterans Society" boxSize="36px" mr={3} borderRadius="full" shadow="sm" />
-            <Text fontWeight="bold" fontSize="lg" color={textColor} letterSpacing="tight">Veterans Society</Text>
-          </Flex>
-          <NavButtons />
-          <ProfileButtons />
-        </Box>
-      ) : (
-        <>
-          {/* Mobile IconButton to trigger Drawer */}
-          <IconButton
-            icon={<AlignCenter />}
-            aria-label="Open Menu"
-            onClick={onOpen}
-            position="fixed"
-            top="1rem"
-            left="1rem"
-            zIndex={1000}
-            size="lg"
-          />
-          <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-            <DrawerOverlay />
-            <DrawerContent bg={bgColor}>
-              <DrawerBody display="flex" flexDirection="column" py={4}>
-                <Flex align="center" mb={6} p={3} borderRadius="md" bgColor={profileHoverBg} boxShadow="sm" border="1px" borderColor={borderColor}>
-                  <Image src="/vite.png" alt="Veterans Society" boxSize="36px" mr={3} borderRadius="full" />
-                  <Text fontWeight="bold" fontSize="lg" color={textColor}>Veterans Society</Text>
-                </Flex>
-                <NavButtons />
-                <ProfileButtons />
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
-        </>
-      )}
+      {/* Mobile IconButton to trigger Drawer */}
+      <IconButton
+        icon={<AlignCenter />}
+        aria-label="Open Menu"
+        onClick={onOpen}
+        position="fixed"
+        top="1rem"
+        left="1rem"
+        zIndex={1000}
+        size="lg"
+      />
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent bg={bgColor}>
+          <DrawerBody display="flex" flexDirection="column" py={4}>
+            <Flex align="center" mb={6} p={3} borderRadius="md" bgColor={profileHoverBg} boxShadow="sm" border="1px" borderColor={borderColor}>
+              <Image src="/vite.png" alt="BTH Fitness" boxSize="36px" mr={3} borderRadius="full" />
+              <Text fontWeight="bold" fontSize="lg" color={textColor}>BTH Fitness</Text>
+            </Flex>
+            <NavButtons />
+            <ProfileButtons />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };

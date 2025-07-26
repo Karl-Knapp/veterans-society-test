@@ -52,4 +52,4 @@ app.include_router(donations.router)
 app.include_router(forms.router)
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Veterans Society API"}
+    return {"message": "Welcome to the BTH Fitness API"}

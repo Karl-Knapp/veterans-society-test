@@ -33,7 +33,7 @@ function App() {
         <AuthProvider>
           <Flex height="100vh" width="100vw" overflow="hidden">
           <Box 
-            width={{ base: 0, md: "200px" }}
+            // width={{ base: 0, md: "200px" }}
             display={{ base: "none", md: "block" }}
             flexShrink={0}
             height="100vh"
@@ -45,7 +45,9 @@ function App() {
               <Navbar />
             </Box>
             
-            <DrawerNav />
+            <Box display={{ base: "block", md: "none" }}>
+              <DrawerNav />
+            </Box>
 
             <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, md: '200px' }}>
               <Suspense fallback={<Loading />}>

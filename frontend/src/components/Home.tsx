@@ -25,12 +25,12 @@ const Home: React.FC = () => {
   return (
     <Box className="flex flex-col items-center justify-center">
       <Box as="section" position="relative" height="100vh" width="100%" overflow="hidden">
-        <Box as="img" src="veterans.jpg" alt="Veterans Society" style={{
+        <Box as="img" src="veterans.jpg" alt="BTH Fitness" style={{
           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0,
           filter: useColorModeValue('none', 'brightness(0.7)')
         }} />
         <Flex height="100%" align="center" justify="center" color="white" textAlign="center" direction="column" p={4} position="relative" zIndex="1">
-          <Heading size="2xl" mb={4}>Welcome to Veterans Society</Heading>
+          <Heading size="2xl" mb={4}>Welcome to BTH Fitness</Heading>
           <Text fontSize="xl" mb={6}>Empowering veterans through resources, connections, and support.</Text>
           {username ? 
             <Button bgColor={buttonBgColor} color="white" size="lg" onClick={() => navigate(`/${username}/feed`)}
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
       </VStack>
 
       <Flex align="center" justify="center" p={4} bg={footerBgColor} color="white" textAlign="center" w="100%">
-        <Text>© 2025 Veterans Society. All rights reserved.</Text>
+        <Text>© 2025 BTH Fitness. All rights reserved.</Text>
       </Flex>
     </Box>
   );
