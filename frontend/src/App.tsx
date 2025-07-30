@@ -49,7 +49,7 @@ function App() {
             <DrawerNav />
           </Box>
 
-            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }} flex-wrap={{base: "wrap", lg: "nowrap"}}>
+            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }} flexWrap={{base: "wrap", lg: "nowrap"}}>
               <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Home />} />
