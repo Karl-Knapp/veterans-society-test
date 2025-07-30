@@ -31,7 +31,7 @@ function App() {
     <BrowserRouter>
       <ChakraProvider>
         <AuthProvider>
-          <Flex height="100vh" width="100vw" overflow="hidden" flex-wrap={{ base: "wrap", lg: "nowrap" }}>
+          <Flex height="100vh" width="100vw" overflow="hidden">
           <Box 
             width={{ base: 0, lg: "200px" }}
             display={{ base: "none", lg: "block" }}
@@ -43,13 +43,13 @@ function App() {
             bg="gray.800"
             >
               <Navbar />
-            </Box>
+          </Box>
             
-            <Box display={{ base: "block", lg: "none" }}>
-              <DrawerNav />
-            </Box>
+          <Box display={{ base: "block", lg: "none" }}>
+            <DrawerNav />
+          </Box>
 
-            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }}>
+            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }} flex-wrap={{base: "wrap", lg: "nowrap"}}>
               <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Home />} />
