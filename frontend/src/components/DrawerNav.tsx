@@ -126,7 +126,7 @@ const DrawerNav: React.FC = () => {
             </Flex>
           </Flex>
           <Button onClick={handleLogout} leftIcon={<LogOut size={18} />} variant="ghost" borderRadius="md" _hover={{ bg: hoverBgColor, color: hoverTextColor }}
-            color={subTextColor} width="100%" size="md">
+            color={subTextColor} width="100%" size="md" justifyContent="flex-start">
             Logout
           </Button>
           <Box mt={2} display="flex" justifyContent="center">

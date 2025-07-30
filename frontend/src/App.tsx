@@ -34,7 +34,7 @@ function App() {
           <Flex height="100vh" width="100vw" overflow="hidden">
           <Box 
             // width={{ base: 0, md: "200px" }}
-            display={{ base: "none", md: "block" }}
+            display={{ base: "none", lg: "block" }}
             flexShrink={0}
             height="100vh"
             position="fixed"
@@ -45,7 +45,7 @@ function App() {
               <Navbar />
             </Box>
             
-            <Box display={{ base: "block", md: "none" }}>
+            <Box display={{ base: "block", lg: "none" }}>
               <DrawerNav />
             </Box>
 

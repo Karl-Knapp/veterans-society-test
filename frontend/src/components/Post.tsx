@@ -142,7 +142,7 @@ const Post: React.FC<PostProps> = ({ postId, author, content, topics, images, li
   };
 
   return (
-    <Box p={4} id={postId} bg={cardBg} color={textColor}>
+    <Box p={4} id={postId} bg={cardBg} color={textColor} w="100%" maxW="600px" mx="auto">
       <Flex justify="space-between" align="center" mb={2}>
         <HStack spacing={2}>
           <Avatar name={author} src={profilePic} size="sm" />
