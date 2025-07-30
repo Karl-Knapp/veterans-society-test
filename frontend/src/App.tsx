@@ -49,7 +49,7 @@ function App() {
               <DrawerNav />
             </Box>
 
-            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, md: '200px' }}>
+            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }}>
               <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Home />} />

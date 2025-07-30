@@ -209,7 +209,7 @@ const Feed = () => {
 					shadow="sm"
 					borderRadius="0"
 					bg={cardBgColor}
-					// position="sticky"
+					position={{ base: "static", lg: "sticky" }}
 					top="4"
 					maxH="80vh"
 					overflowY="auto"
