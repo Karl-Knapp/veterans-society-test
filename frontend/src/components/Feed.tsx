@@ -198,58 +198,58 @@ const Feed = () => {
 	return (
 		<Box bg={bgColor} minH="100vh">
 			<Grid
-  templateColumns={{ base: "1fr", lg: "1fr 2fr 1fr" }}
-  gap={4}
-  p={4}
-  maxW="1600px"
-  mx="auto"
->
-				{/* Left Column: Search Filters */}
-				<Box
-  p={4}
-  shadow="sm"
-  borderRadius="0"
-  bg={cardBgColor}
-  position={{ base: "static", lg: "sticky" }}
-  top="4"
-  maxH={{ lg: "80vh" }}
-  overflowY={{ lg: "auto" }}
->
-  <Heading as="h3" size="md" mb={4} color={textColor}>
-    Search Filters
-  </Heading>
-  
-  <Stack
-    direction={{ base: "row", lg: "column" }}
-    spacing={3}
-    align={{ base: "center", lg: "start" }}
-    flexWrap="wrap"
-  >
-    <Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Mental Health")}>
-      Mental Health
-    </Checkbox>
-    <Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Employment")}>
-      Employment
-    </Checkbox>
-    <Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Substance")}>
-      Substance
-    </Checkbox>
-    <Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Shelter")}>
-      Shelter
-    </Checkbox>
-    
-    <Button
-      onClick={filterTopics}
-      bgColor={buttonBgColor}
-      color="white"
-      _hover={{ bgColor: buttonHoverColor }}
-      width={{ base: "auto", lg: "full" }}
-      mt={{ base: 0, lg: 2 }}
-    >
-      Filter Topics
-    </Button>
-  </Stack>
-</Box>
+			templateColumns={{ base: "1fr", lg: "1fr 2fr 1fr" }}
+			gap={4}
+			p={4}
+			maxW="1600px"
+			mx="auto"
+			>
+							{/* Left Column: Search Filters */}
+							<Box
+			p={4}
+			shadow="sm"
+			borderRadius="0"
+			bg={cardBgColor}
+			position={{ base: "static", lg: "sticky" }}
+			top="4"
+			maxH={{ lg: "80vh" }}
+			overflowY={{ lg: "auto" }}
+			>
+			<Heading as="h3" size="md" mb={4} color={textColor}>
+				Search Filters
+			</Heading>
+			<VStack>
+				<Stack
+					direction={{ base: "row", lg: "column" }}
+					spacing={3}
+					align={{ base: "center", lg: "start" }}
+					flexWrap="wrap"
+				>
+						<Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Mental Health")}>
+						Mental Health
+						</Checkbox>
+						<Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Employment")}>
+						Employment
+						</Checkbox>
+						<Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Substance")}>
+						Substance
+						</Checkbox>
+						<Checkbox colorScheme="gray" onChange={() => handleCheckboxChange("Shelter")}>
+						Shelter
+						</Checkbox>
+					</Stack>
+					<Button
+						onClick={filterTopics}
+						bgColor={buttonBgColor}
+						color="white"
+						_hover={{ bgColor: buttonHoverColor }}
+						width={{ base: "auto", lg: "full" }}
+						mt={{ base: 0, lg: 2 }}
+						>
+						Filter Topics
+					</Button>
+				</VStack>
+			</Box>
 
 
 				{/* Middle Column: Posts */}
