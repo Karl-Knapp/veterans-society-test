@@ -49,9 +49,8 @@ function App() {
             <DrawerNav />
           </Box>
 
-            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }} flexWrap="wrap">
+            <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }}>
               <Suspense fallback={<Loading />}>
-                <Flex wrap="wrap">
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/register" element={<Register />} />
@@ -78,7 +77,6 @@ function App() {
                     <Route path="/:username/dashboard" element={<Dashboard />} />
                   </Route>
                 </Routes>
-                </Flex>
               </Suspense>
             </Box>
           </Flex>
