@@ -50,6 +50,7 @@ function App() {
           </Box>
 
             <Box flex="1" height="100vh" overflowY="auto" marginLeft={{ base: 0, lg: '200px' }} flexWrap="wrap">
+              <Box display="flex" flexWrap="wrap">
               <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Home />} />
@@ -78,7 +79,8 @@ function App() {
                   </Route>
                 </Routes>
               </Suspense>
-            </Box>
+              </Box>
+              </Box>
           </Flex>
         </AuthProvider>
       </ChakraProvider>
