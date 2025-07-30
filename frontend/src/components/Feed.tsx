@@ -215,7 +215,7 @@ const Feed = () => {
 			maxH={{ lg: "80vh" }}
 			overflowY={{ lg: "auto" }}
 			>
-			<Heading as="h3" size="md" mb={4} color={textColor}>
+			<Heading as="h3" size="md" mb={4} color={textColor} textAlign={{ base: "center", lg: "left" }}>
 				Search Filters
 			</Heading>
 			<VStack>
@@ -239,15 +239,15 @@ const Feed = () => {
 						</Checkbox>
 					</Stack>
 					<Button
-						onClick={filterTopics}
-						bgColor={buttonBgColor}
-						color="white"
-						_hover={{ bgColor: buttonHoverColor }}
-						width={{ base: "auto", lg: "full" }}
-						mt={{ base: 0, lg: 2 }}
+							onClick={filterTopics}
+							bgColor={buttonBgColor}
+							color="white"
+							_hover={{ bgColor: buttonHoverColor }}
+							width="full"
+							mt={2}
 						>
-						Filter Topics
-					</Button>
+							Filter Topics
+						</Button>
 				</VStack>
 			</Box>
 
