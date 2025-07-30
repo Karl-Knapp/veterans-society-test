@@ -31,7 +31,7 @@ function App() {
     <BrowserRouter>
       <ChakraProvider>
         <AuthProvider>
-          <Flex height="100vh" width="100vw" overflow="hidden">
+          <Flex height="100vh" width="100vw" overflow="hidden" flex-wrap={{ base: "wrap", lg: "nowrap" }}>
           <Box 
             width={{ base: 0, lg: "200px" }}
             display={{ base: "none", lg: "block" }}
