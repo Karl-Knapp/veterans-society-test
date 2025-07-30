@@ -196,7 +196,7 @@ const Feed = () => {
 	}
 
 	return (
-		<Box bg={bgColor} minH="100vh">
+		<Box bg={bgColor} minH="100vh" flex-wrap={{ base: "wrap", lg: "nowrap" }}>
 			<Grid
 			templateColumns={{ base: "1fr", lg: "1fr 2fr 1fr" }}
 			gap={4}
