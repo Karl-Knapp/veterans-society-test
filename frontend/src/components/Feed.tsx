@@ -197,7 +197,7 @@ const Feed = () => {
 	return (
 		<Box bg={bgColor} minH="100vh">
 			<Grid
-  templateColumns={{ base: "1fr", md: "1fr 2fr 1fr" }}
+  templateColumns={{ base: "1fr", lg: "1fr 2fr 1fr" }}
   gap={4}
   p={4}
   maxW="1600px"
