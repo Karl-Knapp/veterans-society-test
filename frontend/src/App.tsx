@@ -33,7 +33,7 @@ function App() {
         <AuthProvider>
           <Flex height="100vh" width="100vw" overflow="hidden">
           <Box 
-            // width={{ base: 0, md: "200px" }}
+            width={{ base: 0, lg: "200px" }}
             display={{ base: "none", lg: "block" }}
             flexShrink={0}
             height="100vh"
