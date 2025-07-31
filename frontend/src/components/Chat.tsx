@@ -421,9 +421,24 @@ const Chat: React.FC = () => {
 								borderColor={borderColor}
 								bg={bgColor}
 							>
-								<Heading size="md" fontWeight="bold" color={textColor} textAlign={{ base: "center", lg: "left" }}>
-									{selectedRoom}
-								</Heading>
+								<Flex
+									justify={{ base: "center", lg: "space-between" }}
+									align="center"
+									p={4}
+									borderBottom="1px"
+									borderColor={borderColor}
+									bg={bgColor}
+								>
+									<Heading
+										size="md"
+										fontWeight="bold"
+										color={textColor}
+										textAlign={{ base: "center", lg: "left" }}
+										flex={{ base: 1, lg: "none" }}
+									>
+										{selectedRoom}
+									</Heading>
+								</Flex>
 								<HStack>
 									<IconButton
 										aria-label="View Members"
