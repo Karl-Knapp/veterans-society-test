@@ -204,20 +204,19 @@ const Feed = () => {
 			p={4}
 			width="280px"	
 			// maxW="1600px"
-			mx="auto"
+			mx="0"
 			>
-				{/* Left Column: Search Filters */}
-				<Box
-					p={4}
-					shadow="sm"
-					borderRadius="0"
-					bg={cardBgColor}
-					position={{ base: "static", lg: "sticky" }}
-					top="4"
-					maxH={{ lg: "80vh" }}
-					overflowY={{ lg: "auto" }}
-					width="280px"	
-				>
+							{/* Left Column: Search Filters */}
+							<Box
+			p={4}
+			shadow="sm"
+			borderRadius="0"
+			bg={cardBgColor}
+			position={{ base: "static", lg: "sticky" }}
+			top="4"
+			maxH={{ lg: "80vh" }}
+			overflowY={{ lg: "auto" }}
+			>
 			<Heading as="h3" size="md" mb={4} color={textColor} textAlign={{ base: "center", lg: "left" }}>
 				Search Filters
 			</Heading>
@@ -256,9 +255,9 @@ const Feed = () => {
 
 
 				{/* Middle Column: Posts */}
-				<Box width="280px">
+				<Box>
 					<CreatePostCard mutate={handleMutate} />
-					<VStack spacing={4} align="stretch" mt={4} width="280px"	>
+					<VStack spacing={4} align="stretch" mt={4}>
 						{activePosts?.length > 0 ? (
 							activePosts.map((post: Post) => (
 								<Box
@@ -266,7 +265,6 @@ const Feed = () => {
 									bg={cardBgColor}
 									borderRadius="md"
 									overflow="hidden"
-									width="280px"	
 									transition="all 0.2s ease-in-out"
 									_hover={{
 										transform: "translateY(-3px)",
@@ -291,8 +289,7 @@ const Feed = () => {
 								shadow="sm"
 								borderRadius="md"
 								bg={cardBgColor}
-									textAlign="center"
-									width="280px"	
+								textAlign="center"
 							>
 								<Text color={mutedTextColor}>No posts available.</Text>
 							</Box>
@@ -310,14 +307,13 @@ const Feed = () => {
 					top="4"
 					maxH="80vh"
 					overflowY="auto"
-					width="280px"	
 				>
 					<Text fontWeight="bold" fontSize="xl" mb={4} color={textColor}>
 						Hi {username}!
 					</Text>
 
 					{isLoadingTrending ? (
-						<Box textAlign="center" py={4} width="280px"	>
+						<Box textAlign="center" py={4}>
 							<Spinner size="md" color={mutedTextColor} />
 							<Text color={mutedTextColor} mt={2}>
 								Loading trending data...
@@ -329,7 +325,7 @@ const Feed = () => {
 							<Text fontWeight="bold" mb={3} color={textColor} fontSize="md">
 								Trending Topics
 							</Text>
-							<List spacing={2} mb={5} width="280px"	>
+							<List spacing={2} mb={5}>
 								{topics.map((topic, index) => (
 									<ListItem
 										key={index}
@@ -350,7 +346,7 @@ const Feed = () => {
 							<Text fontWeight="bold" mb={3} color={textColor} fontSize="md">
 								Trending Keywords
 							</Text>
-							<List spacing={2} width="280px"	>
+							<List spacing={2}>
 								{keywords.map((keyword, index) => (
 									<ListItem
 										key={index}
@@ -360,7 +356,6 @@ const Feed = () => {
 										borderColor={borderColor}
 										_hover={{ borderColor: buttonBgColor, bg: hoverBgColor }}
 										pl={3}
-										width="280px"	
 									>
 										<ListIcon as={TrendingUp} color={mutedTextColor} />
 										{keyword}
