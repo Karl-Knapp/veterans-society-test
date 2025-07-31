@@ -18,6 +18,7 @@ import {
 	Center,
 	Avatar,
 	useColorModeValue,
+	Button,
 } from "@chakra-ui/react";
 import {
 	Plus,
@@ -282,9 +283,7 @@ const Chat: React.FC = () => {
 
 	return (
 		<Box h="calc(100vh - 40px)" display="flex" flexDirection="column" pt={4}>
-			<IconButton
-				aria-label="Open Chats"
-				icon={<MessageCircle />}
+			<Button
 				position="fixed"
 				bottom="20px"
 				left="20px"
@@ -292,7 +291,13 @@ const Chat: React.FC = () => {
 				display={{ base: "flex", lg: "none" }}
 				colorScheme="gray"
 				onClick={mobileSidebar.onOpen}
-			/>
+				borderRadius="full"
+				px={4}
+				py={2}
+				shadow="md"
+			>
+				Open Chats
+			</Button>
 			<Flex h="full">
 				{/* Chat Rooms Sidebar */}
 				<Box
