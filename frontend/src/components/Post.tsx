@@ -187,15 +187,13 @@ const Post: React.FC<PostProps> = ({ postId, author, content, topics, images, li
       )}
 
       {/* Post Topics */}
-      <Wrap spacing={2} mb={4}>
+      <Flex flexWrap="wrap" gap={2} mb={4}>
   {topics.map((topic, index) => (
-    <WrapItem key={index}>
-      <Text fontSize="sm" color={subtleColor}>
-        #{topic}
-      </Text>
-    </WrapItem>
+    <Text key={index} fontSize="sm" color={subtleColor}>
+      #{topic}
+    </Text>
   ))}
-</Wrap>
+</Flex>
 
       {/* Like Button */}
       <HStack spacing={4}>
