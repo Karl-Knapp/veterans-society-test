@@ -166,7 +166,11 @@ const DrawerNav: React.FC = () => {
       />
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent bg={bgColor}>
+        <DrawerContent
+          bg={bgColor}
+          maxW={{ base: '80%', sm: '400px' }}
+          w="100%"
+        >
           <DrawerBody display="flex" flexDirection="column" py={4}>
             <Flex align="center" mb={6} p={3} borderRadius="md" bgColor={profileHoverBg} boxShadow="sm" border="1px" borderColor={borderColor}>
               <Image src="/vite.png" alt="BTH Fitness" boxSize="36px" mr={3} borderRadius="full" />

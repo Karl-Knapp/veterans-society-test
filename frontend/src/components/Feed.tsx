@@ -205,17 +205,17 @@ const Feed = () => {
 			maxW="1600px"
 			mx="0"
 			>
-							{/* Left Column: Search Filters */}
-							<Box
-			p={4}
-			shadow="sm"
-			borderRadius="0"
-			bg={cardBgColor}
-			position={{ base: "static", lg: "sticky" }}
-			top="4"
-			maxH={{ lg: "80vh" }}
-			overflowY={{ lg: "auto" }}
-			>
+				{/* Left Column: Search Filters */}
+				<Box
+					p={4}
+					shadow="sm"
+					borderRadius="0"
+					bg={cardBgColor}
+					position={{ base: "static", lg: "sticky" }}
+					top="4"
+					maxH={{ lg: "80vh" }}
+					overflowY={{ lg: "auto" }}
+				>
 			<Heading as="h3" size="md" mb={4} color={textColor} textAlign={{ base: "center", lg: "left" }}>
 				Search Filters
 			</Heading>

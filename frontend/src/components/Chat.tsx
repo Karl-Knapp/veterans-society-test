@@ -285,8 +285,8 @@ const Chat: React.FC = () => {
 		<Box h="calc(100vh - 40px)" display="flex" flexDirection="column" pt={4}>
 			<Button
 				position="fixed"
-				bottom="20px"
-				left="20px"
+				bottom="10px"
+				left="16px"
 				zIndex="999"
 				display={{ base: "flex", lg: "none" }}
 				colorScheme="gray"
@@ -421,7 +421,7 @@ const Chat: React.FC = () => {
 								borderColor={borderColor}
 								bg={bgColor}
 							>
-								<Heading size="md" fontWeight="bold" color={textColor}>
+								<Heading size="md" fontWeight="bold" color={textColor} textAlign={{ base: "center", lg: "left" }}>
 									{selectedRoom}
 								</Heading>
 								<HStack>
