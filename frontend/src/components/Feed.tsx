@@ -204,7 +204,7 @@ const Feed = () => {
 			p={4}
 			width="280px"	
 			// maxW="1600px"
-			mx="auto"
+			mx="0"
 			>
 							{/* Left Column: Search Filters */}
 							<Box
