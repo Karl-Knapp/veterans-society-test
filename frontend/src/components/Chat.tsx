@@ -65,6 +65,7 @@ const Chat: React.FC = () => {
 	const leaveModal = useDisclosure();
 	const toast = useToast();
 	const viewMembersDrawer = useDisclosure();
+	const mobileSidebar = useDisclosure();
 
 	const { sendMessage, lastMessage } = useWebSocket(
 		`ws://34.238.233.251:8000/chat/ws?room_id=${selectedRoom}&author=${username}`,
@@ -281,9 +282,21 @@ const Chat: React.FC = () => {
 
 	return (
 		<Box h="calc(100vh - 40px)" display="flex" flexDirection="column" pt={4}>
+			<IconButton
+				aria-label="Open Chats"
+				icon={<MessageCircle />}
+				position="fixed"
+				bottom="20px"
+				left="20px"
+				zIndex="999"
+				display={{ base: "flex", lg: "none" }}
+				colorScheme="gray"
+				onClick={mobileSidebar.onOpen}
+			/>
 			<Flex h="full">
 				{/* Chat Rooms Sidebar */}
 				<Box
+					display={{ base: "none", lg: "block" }}
 					w="300px"
 					h="full"
 					bg={bgColor}
@@ -629,6 +642,104 @@ const Chat: React.FC = () => {
 								<Text color={subTextColor}>No members found</Text>
 							</Center>
 						)}
+					</DrawerBody>
+				</DrawerContent>
+			</Drawer>
+			<Drawer
+				isOpen={mobileSidebar.isOpen}
+				placement="left"
+				onClose={mobileSidebar.onClose}
+			>
+				<DrawerOverlay />
+				<DrawerContent bg={bgColor} color={textColor}>
+					<DrawerCloseButton />
+					<DrawerHeader borderBottomWidth="1px" borderColor={borderColor}>
+						Chats
+					</DrawerHeader>
+					<DrawerBody p={0}>
+						{/* Copy the inner content of the sidebar here */}
+						<Box p={4} borderBottom="1px" borderColor={lightBorderColor}>
+							<Flex justify="space-between" align="center" mb={4}>
+								<Heading size="md" fontWeight="bold" color={textColor}>
+									Chats
+								</Heading>
+								<HStack spacing={2}>
+									<IconButton
+										aria-label="Create Chat"
+										icon={<Plus size={18} />}
+										colorScheme="gray"
+										size="sm"
+										onClick={() => {
+											createModal.onOpen();
+											mobileSidebar.onClose();
+										}}
+									/>
+									<IconButton
+										aria-label="Join Chat"
+										icon={<LogIn size={18} />}
+										colorScheme="gray"
+										size="sm"
+										onClick={() => {
+											joinModal.onOpen();
+											mobileSidebar.onClose();
+										}}
+									/>
+								</HStack>
+							</Flex>
+
+							<HStack mb={4}>
+								<Input
+									value={searchInput}
+									onChange={(e) => setSearchInput(e.target.value)}
+									placeholder="Search chats..."
+									size="md"
+									borderRadius="md"
+									bg={inputBg}
+									color={textColor}
+									_focus={{
+										borderColor: "gray.500",
+										boxShadow: "0 0 0 1px gray.500",
+									}}
+								/>
+								<IconButton
+									aria-label="Search"
+									icon={<Search size={18} />}
+									colorScheme="gray"
+									size="md"
+								/>
+							</HStack>
+						</Box>
+
+						<Box overflowY="auto" maxH="calc(100vh - 200px)">
+							{rooms
+								.filter((room) => !searchInput || room.includes(searchInput))
+								.map((room, index) => (
+									<Box
+										key={index}
+										p={3}
+										m={2}
+										borderRadius="md"
+										bg={selectedRoom === room ? selectedBg : bgColor}
+										borderLeft={selectedRoom === room ? "4px solid" : "none"}
+										borderLeftColor="gray.500"
+										cursor="pointer"
+										_hover={{ bg: selectedRoom === room ? selectedBg : hoverBg }}
+										onClick={() => {
+											handleSelectRoom(room);
+											mobileSidebar.onClose(); // Close drawer on selection
+										}}
+										transition="all 0.2s"
+									>
+										<Text
+											fontSize="md"
+											fontWeight={selectedRoom === room ? "bold" : "medium"}
+											color={textColor}
+										>
+											{room}
+										</Text>
+									</Box>
+								))}
+						</Box>
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
