@@ -1,4 +1,4 @@
-import { Box, Text, VStack, Image, HStack, IconButton, Avatar, Divider, Input, Button, Flex, useToast, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, VStack, Image, HStack, IconButton, Avatar, Divider, Input, Button, Flex, useToast, useColorModeValue, Wrap, WrapItem } from "@chakra-ui/react";
 import { Heart, Trash2 } from "react-feather";
 import { useState, useEffect } from "react";
 import { useAuth } from "../Auth/Auth";
@@ -187,13 +187,15 @@ const Post: React.FC<PostProps> = ({ postId, author, content, topics, images, li
       )}
 
       {/* Post Topics */}
-      <HStack spacing={2} mb={4}>
-        {topics.map((topic, index) => (
-          <Text key={index} fontSize="sm" color={subtleColor}>
-            #{topic}
-          </Text>
-        ))}
-      </HStack>
+      <Wrap spacing={2} mb={4}>
+  {topics.map((topic, index) => (
+    <WrapItem key={index}>
+      <Text fontSize="sm" color={subtleColor}>
+        #{topic}
+      </Text>
+    </WrapItem>
+  ))}
+</Wrap>
 
       {/* Like Button */}
       <HStack spacing={4}>
