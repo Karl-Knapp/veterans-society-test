@@ -27,6 +27,7 @@ interface FormData {
   firstName: string;
   lastName: string;
   username: string;
+  displayName?: string;
   password: string;
   phoneNumber: string;
   email: string;
@@ -185,8 +186,17 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const lowercaseUsername = formData.username.toLowerCase();
+
+    const finalFormData = {
+      ...formData,
+      username: lowercaseUsername,
+      displayName: formData.username // preserve original casing
+    };
+
     postUser({ 
-      formData, 
+      formData: finalFormData,
       setErrors, 
       navigate, 
       toast, 
