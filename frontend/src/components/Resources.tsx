@@ -97,6 +97,7 @@ const Resources: React.FC = () => {
     // Get user's location when component mounts
     if ("geolocation" in navigator) {
       console.log("PING")
+      console.log(navigator.geolocation)
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const location = {
