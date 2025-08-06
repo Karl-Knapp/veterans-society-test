@@ -202,7 +202,7 @@ const Feed = () => {
 			templateColumns={{ base: "1fr", lg: "1fr 2fr 1fr" }}
 			gap={4}
 			p={4}
-			maxW="1600px"
+			// maxW="1600px"
 			mx="0"
 			>
 				{/* Left Column: Search Filters */}
