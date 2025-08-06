@@ -38,10 +38,15 @@ def get_password_hash(password: str) -> str:
 # 1. FIXED PATH ROUTES (most specific, no path parameters)
 @router.post("/register", response_model=UserResponse)
 async def register_user(user: UserCreate):
-    # Check if the username already exists
+    if not user.isVeteran:
+        raise HTTPException(status_code=403, detail="This is a veteran community only.")
+    
+    normalized_username = user.username.lower()
+    normalized_email = user.email.lower()
     logger.info(f"Attempt to register user: {user.username}")
+    
     try:
-        response = users_table.get_item(Key={'username': user.username})
+        response = users_table.get_item(Key={'username': normalized_username})
     except ClientError as e:
         logger.error(f"Failed to query DynamoDB: {e}")
         err_code = e.response['Error']['Code']
@@ -51,20 +56,35 @@ async def register_user(user: UserCreate):
     else:
         if 'Item' in response:
             raise HTTPException(status_code=400, detail="Username already exists.")
+    
+    if normalized_email:
+        try:
+            email_response = users_table.query(
+                IndexName='email-index',
+                KeyConditionExpression=Key('email').eq(normalized_email)
+            )
+        except ClientError as e:
+            logger.error(f"Failed to query users_table for email: {e}")
+            raise HTTPException(status_code=500, detail="Internal server error.")
+
+        if email_response.get('Items'):
+            raise HTTPException(status_code=400, detail="Email already in use.")
+
     hashed_password = get_password_hash(user.password)
 
     # Prepare the user item
     user_item = {
-        'username': user.username,
+        'username': normalized_username,
         'password': hashed_password,
         'firstName': user.firstName,
         'lastName': user.lastName,
         'isVeteran': user.isVeteran,
-        'interests': user.interests
+        'interests': user.interests,
+        'displayName': user.username
     }
 
     if user.email:
-        user_item['email'] = user.email
+        user_item['email'] = normalized_email
         
     if user.phoneNumber:
         user_item['phoneNumber'] = user.phoneNumber
@@ -75,6 +95,7 @@ async def register_user(user: UserCreate):
         user_item['liveLocation'] = user.liveLocation
         user_item['height'] = Decimal(user.height) if user.height is not None else None  # Height in inches
         user_item['weight'] = Decimal(user.weight) if user.weight is not None else None  # Weight in pounds
+        
 
     try:
         # Save the user in DynamoDB

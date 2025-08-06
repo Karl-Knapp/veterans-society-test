@@ -82,7 +82,7 @@ const Register: React.FC = () => {
       const isValid = requiredFields.every(
         (field) => formData[field as keyof typeof formData] && formData[field as keyof typeof formData] !== ""
       );
-      
+  
       if (!isValid) {
         toast({
           title: 'Please fill out all required fields',
@@ -92,21 +92,32 @@ const Register: React.FC = () => {
         });
         return;
       }
+  
+      // New: check if user checked the veteran box
+      if (!formData.isVeteran) {
+        toast({
+          title: 'Sorry, this community is for veterans only.',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
+        return;
+      }
     } else if (step === 2 && formData.isVeteran) {
-      // Validate required fields for veterans on step 2
+      // Existing validation for step 2 for veterans
       const requiredFields = ['liveLocation', 'employmentStatus', 'weight', 'height'];
-
+  
       if (formData.employmentStatus === 'Employed') {
         requiredFields.push('workLocation');
       }
-
+  
       const isValid = requiredFields.every(
         (field) => {
           const value = formData[field as keyof typeof formData];
           return value !== undefined && value !== null && value !== "";
         }
       );
-      
+  
       if (!isValid) {
         toast({
           title: 'Please fill out all required fields',
@@ -117,7 +128,7 @@ const Register: React.FC = () => {
         return;
       }
     }
-
+  
     setStep(step + 1);
   };
 
