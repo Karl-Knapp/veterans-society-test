@@ -96,6 +96,7 @@ const Resources: React.FC = () => {
   useEffect(() => {
     // Get user's location when component mounts
     if ("geolocation" in navigator) {
+      console.log("PING")
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const location = {
@@ -103,6 +104,7 @@ const Resources: React.FC = () => {
             lon: position.coords.longitude,
           };
           setUserLocation(location);
+          console.log(location);
 
           try {
             const veteranResources = await getVeteranResources(
