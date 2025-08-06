@@ -115,7 +115,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 @router.post("/login")
 async def login_user(request: Request, login_data: LoginRequest):
-    username = login_data.username
+    username = login_data.username.lower()
     password = login_data.password
     logger.info(f"Attempt to login user: {username}")
     
