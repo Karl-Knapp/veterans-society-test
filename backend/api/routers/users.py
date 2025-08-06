@@ -8,6 +8,7 @@ from api.models.user import UserCreate, UserResponse, LoginRequest, UserUpdateRe
 from fastapi.responses import RedirectResponse
 from passlib.context import CryptContext
 from boto3.dynamodb.conditions import Attr
+from boto3.dynamodb.conditions import Key
 from fastapi.concurrency import run_in_threadpool
 from datetime import timedelta
 from botocore.exceptions import ClientError
