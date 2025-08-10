@@ -36,6 +36,8 @@ type Props = object;
 
 // Move this outside component and log to verify it's loading
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+console.log(stripePromise)
+console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
 
 const CheckoutForm = ({ amount }: { amount: string; onSuccess: () => void }) => {
     const stripe = useStripe();
