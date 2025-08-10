@@ -44,9 +44,11 @@ const Login: React.FC = () => {
 		e.preventDefault();
 		setIsLoading(true);
 
+		const normalizedUsername = username.toLowerCase();
+
 		try {
 			const response = await axios.post("http://34.238.233.251:8000/users/login", {
-				username,
+				username: normalizedUsername,
 				password,
 			});
 
@@ -55,12 +57,12 @@ const Login: React.FC = () => {
 
 				// Store auth data
 				localStorage.setItem("authToken", response.data.access_token);
-				localStorage.setItem("username", username);
+				localStorage.setItem("username", normalizedUsername);
 				localStorage.setItem("role", isAdminUser ? "admin" : "veteran");
 				localStorage.setItem("loginTime", Date.now().toString());
 
 				// Update auth context
-				setAuthUsername(username);
+				setAuthUsername(normalizedUsername);
 				setAuthToken(response.data.access_token);
 				setIsAdmin(isAdminUser);
 
@@ -73,9 +75,9 @@ const Login: React.FC = () => {
 
 				// Redirect based on role
 				if (isAdminUser) {
-					navigate(`/${username}/dashboard`);
+					navigate(`/${normalizedUsername}/dashboard`);
 				} else {
-					navigate(`/${username}/feed`);
+					navigate(`/${normalizedUsername}/feed`);
 				}
 			}
 		} catch (error: any) {
