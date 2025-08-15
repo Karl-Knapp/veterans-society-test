@@ -31,7 +31,8 @@ origins = [
     "http://172.31.87.54:5173",
     "http://34.238.233.251:5173",
     "http://34.238.233.251:8000",  # Backend origin
-    "http://morganvalleyweb.com" 
+    "http://morganvalleyweb.com",
+    "https://morganvalleyweb.com", 
 ]
 
 app.add_middleware(
