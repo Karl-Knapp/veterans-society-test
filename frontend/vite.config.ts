@@ -7,5 +7,10 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000
   },
-  envDir: './'
+  envDir: './',
+  server: {
+    host: true,   // listen on 0.0.0.0 so ALB can connect
+    port: 5173,   // matches your target group
+    strictPort: true
+  }
 })
