@@ -22,6 +22,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import type { StripeElementsOptions } from '@stripe/stripe-js';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface DonationResponse {
     id: string;
     amount: string;
@@ -165,7 +167,7 @@ const Donate: React.FC<Props> = () => {
             const formattedAmount = Number(amountInput).toFixed(2);
 
             const response = await axios.post<DonationResponse>(
-                'http://34.238.233.251:8000/donations/create-payment-intent',
+                '${API_URL}/donations/create-payment-intent',
                 {
                     amount: formattedAmount,
                     message,

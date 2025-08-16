@@ -16,6 +16,8 @@ import { useAuth } from "../Auth/Auth";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Login: React.FC = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -47,7 +49,7 @@ const Login: React.FC = () => {
 		const normalizedUsername = username.toLowerCase();
 
 		try {
-			const response = await axios.post("http://34.238.233.251:8000/users/login", {
+			const response = await axios.post("${API_URL}/users/login", {
 				username: normalizedUsername,
 				password,
 			});

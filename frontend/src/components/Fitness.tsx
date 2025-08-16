@@ -21,6 +21,7 @@ import { deleteFitnessTaskData } from "../Api/deleteData";
 import { Delete } from "react-feather";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface FitnessTask {
 	username: string;
@@ -79,7 +80,7 @@ const Fitness: React.FC = () => {
 	const fetchTasks = async (): Promise<FitnessTask[]> => {
 		try {
 			const response = await axios.get(
-				`http://34.238.233.251:8000/fitness/${username}`,
+				`${API_URL}/fitness/${username}`,
 				{
 					headers: { "Content-Type": "application/json" },
 					withCredentials: true,

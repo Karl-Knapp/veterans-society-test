@@ -7,6 +7,8 @@ import GroupPost from "./GroupPost";
 import CreateGroupPostCard from "./CreateGroupPostCard";
 import { useColorModeValue } from "@chakra-ui/react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type GroupPostType = {
 	groupId: string;
 	postId: string;
@@ -36,7 +38,7 @@ const Groups: React.FC = () => {
 
 	// Fetch all groups
 	const { data: groups, mutate } = useSWR<Group[]>(
-		"http://34.238.233.251:8000/groups",
+		"${API_URL}/groups",
 		fetcher
 	);
 

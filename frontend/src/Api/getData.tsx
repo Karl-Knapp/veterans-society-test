@@ -1,6 +1,8 @@
 import axios from "axios";
 import { UseToastOptions, useToast } from "@chakra-ui/react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface GetUserDataParams {
 	username: string;
 	setUserData: (data: any) => void;
@@ -22,7 +24,7 @@ export const getUserData = async ({
 		}
 
 		const response = await axios.get(
-			`http://34.238.233.251:8000/users/${username}/visit`,
+			`${API_URL}/users/${username}/visit`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -79,7 +81,7 @@ export const getUserProfilePic = async (username: string) => {
 		}
 
 		const response = await axios.get(
-			`http://34.238.233.251:8000/users/pic/${username}`,
+			`${API_URL}/users/pic/${username}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`, // Send the token in the Authorization header
@@ -107,7 +109,7 @@ interface Comment {
 export const getCommentData = async (postId: string) => {
 	try {
 		const response = await axios.get<Comment[]>(
-			`http://34.238.233.251:8000/comments/${postId}`
+			`${API_URL}/comments/${postId}`
 		);
 		return response.data; // Return the fetched comments
 	} catch (error) {
@@ -134,7 +136,7 @@ export const getFilteredTopics = async (
 	try {
 		const encodedTopics = selectedTopics.join(",");
 		const response = await axios.get<Post[]>(
-			"http://34.238.233.251:8000/posts/filter/topics",
+			"${API_URL}/posts/filter/topics",
 			{
 				params: { topics: encodedTopics },
 			}
@@ -175,13 +177,13 @@ export const getTrendingData = async (): Promise<TrendingData> => {
 	try {
 		// Fetch trending topics
 		const topicsResponse = await axios.get(
-			"http://34.238.233.251:8000/posts/trends/trending-topics"
+			"${API_URL}/posts/trends/trending-topics"
 		);
 		const topicsData = topicsResponse.data;
 
 		// Fetch trending keywords
 		const keywordsResponse = await axios.get(
-			"http://34.238.233.251:8000/posts/trends/trending-keywords"
+			"${API_URL}/posts/trends/trending-keywords"
 		);
 		const keywordsData = keywordsResponse.data;
 
@@ -222,7 +224,7 @@ export type GroupData = {
 // Get all groups
 export const getGroupsData = async (): Promise<GroupData[]> => {
 	try {
-		const response = await axios.get(`http://34.238.233.251:8000/groups/`, {
+		const response = await axios.get(`${API_URL}/groups/`, {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -245,10 +247,10 @@ export const getSearchGroupsData = async (
 	try {
 		// Construct the URL for searching groups
 		const url = query
-			? `http://34.238.233.251:8000/groups/search/?query=${encodeURIComponent(
+			? `${API_URL}/groups/search/?query=${encodeURIComponent(
 					query
 			  )}`
-			: `http://34.238.233.251:8000/groups/search/`;
+			: `${API_URL}/groups/search/`;
 
 		const response = await axios.get(url, {
 			headers: {
@@ -268,7 +270,7 @@ export const getSearchGroupsData = async (
 export const getChatRoomsData = async (user: string | null) => {
 	try {
 		const response = await axios.get(
-			`http://34.238.233.251:8000/chat?user=${user}`
+			`${API_URL}/chat?user=${user}`
 		);
 		return response.data;
 	} catch (error) {
@@ -286,7 +288,7 @@ interface MessageProp {
 
 export const getChatMessagesData = async (roomId: string) => {
 	try {
-		const response = await axios.get(`http://34.238.233.251:8000/chat/messages`, {
+		const response = await axios.get(`${API_URL}/chat/messages`, {
 			params: { room_id: roomId },
 		});
 		const newMessages = response.data.map((msg: MessageProp) => {
@@ -303,7 +305,7 @@ export const getChatMessagesData = async (roomId: string) => {
 
 export const getChatRoomMembersData = async (roomId: string) => {
 	try {
-		const response = await axios.get(`http://34.238.233.251:8000/chat/users`, {
+		const response = await axios.get(`${API_URL}/chat/users`, {
 			params: { room_id: roomId },
 		});
 		return response.data;
@@ -328,7 +330,7 @@ export async function getVeteranResources(
 	try {
 		// First load without geocoding for faster initial response
 		const response = await fetch(
-			`http://34.238.233.251:8000/overpass/veteran-resources?lat=${lat}&lon=${lon}&geocode=true`
+			`${API_URL}/overpass/veteran-resources?lat=${lat}&lon=${lon}&geocode=true`
 		);
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
@@ -391,7 +393,7 @@ async function enrichAddresses(
 	try {
 		// Get the full data with geocoding
 		const response = await fetch(
-			`http://34.238.233.251:8000/overpass/veteran-resources?lat=${lat}&lon=${lon}&geocode=true`
+			`${API_URL}/overpass/veteran-resources?lat=${lat}&lon=${lon}&geocode=true`
 		);
 		if (!response.ok) {
 			return;
@@ -451,7 +453,7 @@ export const searchUsers = async (
 ): Promise<SearchUserResponse[]> => {
 	try {
 		const response = await axios.get<SearchUserResponse[]>(
-			`http://34.238.233.251:8000/users/${logged_in_username}/search?query=${query}`
+			`${API_URL}/users/${logged_in_username}/search?query=${query}`
 		);
 		return response.data;
 	} catch (error) {
@@ -475,7 +477,7 @@ export const getOtherUserData = async ({
 
 	try {
 		const response = await axios.get(
-			`http://34.238.233.251:8000/users/${username}/visit`,
+			`${API_URL}/users/${username}/visit`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`, // Send the token in the Authorization header
@@ -505,7 +507,7 @@ export const getAllUsers = async (): Promise<any[]> => {
 	try {
 		const token = localStorage.getItem("authToken");
 		const response = await axios.get(
-			`http://34.238.233.251:8000/users/admin/all`,
+			`${API_URL}/users/admin/all`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -533,7 +535,7 @@ export interface FormLink {
 export const getAllFormLinks = async (): Promise<FormLink[]> => {
 	try {
 		const response = await axios.get(
-			"http://34.238.233.251:8000/forms/get_all_forms",
+			"${API_URL}/forms/get_all_forms",
 			{
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("authToken")}`,

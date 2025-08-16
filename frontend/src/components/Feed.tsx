@@ -24,6 +24,7 @@ import Post from "./Post";
 import CreatePostCard from "./CreatePostCard";
 import { useAuth } from "../Auth/Auth";
 import { TrendingUp } from "react-feather";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Post {
 	postId: string;
@@ -44,7 +45,7 @@ const Feed = () => {
 		data: posts,
 		error,
 		mutate,
-	} = useSWR<Post[]>("http://34.238.233.251:8000/posts", fetcher);
+	} = useSWR<Post[]>("${API_URL}/posts", fetcher);
 	const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 	const [activePosts, setActivePosts] = useState<Post[]>([]);
 	const [isLoadingTrending, setIsLoadingTrending] = useState(true);
@@ -102,7 +103,7 @@ const Feed = () => {
 	const handleMutate = async () => {
 		try {
 			const updatedPosts = await mutate(async () => {
-				const response = await fetcher("http://34.238.233.251:8000/posts");
+				const response = await fetcher("${API_URL}/posts");
 				return response.sort(
 					(a: Post, b: Post) =>
 						new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()

@@ -22,6 +22,8 @@ import { getOtherUserData } from '../../Api/getData';
 import { Delete, ArrowLeft } from "react-feather";
 import { useParams, useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface FitnessTask {
     username: string;
     task_id: string;
@@ -75,7 +77,7 @@ const AdminFitness: React.FC = () => {
 
     const fetchTasks = async (user: string) => {
         try {
-            const response = await axios.get(`http://34.238.233.251:8000/fitness/${user}`, {
+            const response = await axios.get(`${API_URL}/fitness/${user}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`

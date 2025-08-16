@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UseToastOptions } from "@chakra-ui/react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface PostUserParams {
 	formData: any;
@@ -82,7 +83,7 @@ export const postUser = async ({
 		}
 
 		const response = await axios.post(
-			"http://34.238.233.251:8000/users/register",
+			"${API_URL}/users/register",
 			payload
 		);
 
@@ -166,7 +167,7 @@ export const postLogin = async (
 ): Promise<LoginResponse> => {
 	try {
 		const response = await axios.post<LoginResponse>(
-			"http://34.238.233.251:8000/users/login",
+			"${API_URL}/users/login",
 			{ username, password },
 			{ headers: { "Content-Type": "application/json" } }
 		);
@@ -209,7 +210,7 @@ export const postPostData = async (newPost: PostPostParams) => {
 		newPost.images.forEach((image) => {
 			formData.append("images", image);
 		});
-		await axios.post("http://34.238.233.251:8000/posts/", formData);
+		await axios.post("${API_URL}/posts/", formData);
 		return { success: true };
 	} catch (error) {
 		console.error("Failed to create post:", error);
@@ -236,7 +237,7 @@ export const postCommentData = async (
 
 	try {
 		// Send POST request to the API
-		await axios.post("http://34.238.233.251:8000/comments/", commentData);
+		await axios.post("${API_URL}/comments/", commentData);
 		return commentData; // Return the created comment data
 	} catch (error) {
 		console.error("Failed to add comment:", error);
@@ -281,7 +282,7 @@ export const postGroupData = async (
 		}
 
 		const response = await axios.post(
-			"http://34.238.233.251:8000/groups/",
+			"${API_URL}/groups/",
 			formData,
 			{
 				headers: {
@@ -349,7 +350,7 @@ export const postGroupPostData = async (
 		formData.append("createdAt", post.createdAt);
 
 		const response = await axios.post(
-			`http://34.238.233.251:8000/groups/${groupId}/posts`,
+			`${API_URL}/groups/${groupId}/posts`,
 			formData,
 			{
 				headers: {
@@ -369,7 +370,7 @@ export const postChatCreateRoomData = async (
 	user: string | null
 ) => {
 	try {
-		await axios.post("http://34.238.233.251:8000/chat/create", {
+		await axios.post("${API_URL}/chat/create", {
 			room_id: roomId,
 			user: user,
 		});
@@ -382,7 +383,7 @@ export const postChatCreateRoomData = async (
 export const postLikeData = async (postId: string, username: string) => {
 	try {
 		const response = await axios.post(
-			`http://34.238.233.251:8000/posts/${postId}/like`,
+			`${API_URL}/posts/${postId}/like`,
 			{
 				username: username,
 			}
@@ -401,7 +402,7 @@ export const postGroupLikeData = async (
 ) => {
 	try {
 		const response = await axios.post(
-			`http://34.238.233.251:8000/groups/${groupId}/posts/${postId}/like`,
+			`${API_URL}/groups/${groupId}/posts/${postId}/like`,
 			{
 				username: username,
 			}
@@ -423,7 +424,7 @@ export const postGroupLikeData = async (
 export const postFitnessData = async (username: string, task_id: string) => {
 	try {
 		const response = await axios.post(
-			`http://34.238.233.251:8000/fitness/${username}/${task_id}/check`
+			`${API_URL}/fitness/${username}/${task_id}/check`
 		);
 		return response.data;
 	} catch (error) {
@@ -438,7 +439,7 @@ export const postFitnessAddTaskData = async (
 ) => {
 	try {
 		const response = await axios.post(
-			`http://34.238.233.251:8000/fitness/${username}/task/add`,
+			`${API_URL}/fitness/${username}/task/add`,
 			{
 				description: newTaskDescription,
 			},

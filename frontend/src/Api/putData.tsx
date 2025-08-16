@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UseToastOptions } from "@chakra-ui/react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface PutUserDataParams {
 	username: string;
@@ -31,7 +32,7 @@ export const putUserData = async ({
 		formData.append(field, value);
 
 		const res = await axios.put(
-			`http://34.238.233.251:8000/users/${username}`,
+			`${API_URL}/users/${username}`,
 			formData,
 			{
 				headers: {
@@ -127,7 +128,7 @@ export const putPostData = async (
 		}
 
 		const response = await axios.put(
-			`http://34.238.233.251:8000/posts/${postId}`,
+			`${API_URL}/posts/${postId}`,
 			payload,
 			{
 				headers: {
@@ -167,7 +168,7 @@ export const putGroupData = async (
 ): Promise<GroupData> => {
 	try {
 		const response = await axios.put(
-			`http://34.238.233.251:8000/groups/${groupId}`,
+			`${API_URL}/groups/${groupId}`,
 			groupData,
 			{
 				headers: {
@@ -208,7 +209,7 @@ export const putGroupInfoData = async (
 		}
 
 		const response = await axios.put(
-			`http://34.238.233.251:8000/groups/${groupId}/update-info`,
+			`${API_URL}/groups/${groupId}/update-info`,
 			formData,
 			{
 				headers: {
@@ -229,7 +230,7 @@ export const putJoinRoomData = async (
 	user: string | null
 ): Promise<void> => {
 	try {
-		await axios.put(`http://34.238.233.251:8000/chat/join`, {
+		await axios.put(`${API_URL}/chat/join`, {
 			room_id: roomId,
 			user,
 		});
@@ -244,7 +245,7 @@ export const putLeaveRoomData = async (
 	user: string | null
 ): Promise<void> => {
 	try {
-		await axios.put(`http://34.238.233.251:8000/chat/leave`, {
+		await axios.put(`${API_URL}/chat/leave`, {
 			room_id: roomId,
 			user,
 		});
@@ -314,7 +315,7 @@ export const updateUserData = async (
 		}
 
 		const response = await axios.put(
-			`http://34.238.233.251:8000/users/admin/${username}/update`,
+			`${API_URL}/users/admin/${username}/update`,
 			formData,
 			{
 				headers: {

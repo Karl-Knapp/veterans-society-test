@@ -30,6 +30,8 @@ import { deleteGroupData } from "../Api/deleteData";
 import { v4 as uuidv4 } from "uuid"; // Import UUID library
 import UpdateGroupModal from "./UpdateGroupModal";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 // Fetcher function for SWR
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -52,11 +54,11 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 }) => {
 	// Use SWR for fetching groups (all groups)
 	const { data: allGroups, error } = useSWR<Group[]>(
-		"http://34.238.233.251:8000/groups",
+		"${API_URL}/groups",
 		fetcher
 	);
 	const { mutate: swrMutate } = useSWR<Group[]>(
-		"http://34.238.233.251:8000/groups",
+		"${API_URL}/groups",
 		fetcher
 	);
 	const mutate = externalMutate || swrMutate;

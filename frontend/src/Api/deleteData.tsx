@@ -1,9 +1,11 @@
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export const deleteCommentData = async (commentId: string) => {
 	try {
 		// Send DELETE request to the API
-		await axios.delete(`http://34.238.233.251:8000/comments/${commentId}`);
+		await axios.delete(`${API_URL}/comments/${commentId}`);
 	} catch (error) {
 		// Handle errors gracefully
 		console.error(`Failed to delete comment with ID ${commentId}:`, error);
@@ -13,7 +15,7 @@ export const deleteCommentData = async (commentId: string) => {
 
 export const deleteGroupData = async (groupId: string): Promise<void> => {
 	try {
-		await axios.delete(`http://34.238.233.251:8000/groups/${groupId}`, {
+		await axios.delete(`${API_URL}/groups/${groupId}`, {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -27,7 +29,7 @@ export const deleteGroupData = async (groupId: string): Promise<void> => {
 export const deletePostData = async (postId: string): Promise<void> => {
 	try {
 		const token = localStorage.getItem("authToken");
-		await axios.delete(`http://34.238.233.251:8000/posts/${postId}`, {
+		await axios.delete(`${API_URL}/posts/${postId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -45,7 +47,7 @@ export const deleteGroupPostData = async (
 ): Promise<void> => {
 	try {
 		await axios.delete(
-			`http://34.238.233.251:8000/groups/${groupId}/posts/${postId}`,
+			`${API_URL}/groups/${groupId}/posts/${postId}`,
 			{
 				headers: {
 					"Content-Type": "application/json",
@@ -68,7 +70,7 @@ export const deleteFitnessTaskData = async (
 	taskId: string
 ): Promise<void> => {
 	await axios.delete(
-		`http://34.238.233.251:8000/fitness/${username}/${taskId}/delete`,
+		`${API_URL}/fitness/${username}/${taskId}/delete`,
 		{
 			headers: {
 				"Content-Type": "application/json",
@@ -82,7 +84,7 @@ export const deleteUser = async (username: string): Promise<void> => {
 	try {
 		const token = localStorage.getItem("authToken");
 
-		await axios.delete(`http://34.238.233.251:8000/users/admin/${username}`, {
+		await axios.delete(`${API_URL}/users/admin/${username}`, {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
