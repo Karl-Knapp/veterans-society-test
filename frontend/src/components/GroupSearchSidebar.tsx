@@ -54,11 +54,11 @@ const GroupSearchSidebar: React.FC<GroupSearchSidebarProps> = ({
 }) => {
 	// Use SWR for fetching groups (all groups)
 	const { data: allGroups, error } = useSWR<Group[]>(
-		"${API_URL}/groups",
+		`${API_URL}/groups`,
 		fetcher
 	);
 	const { mutate: swrMutate } = useSWR<Group[]>(
-		"${API_URL}/groups",
+		`${API_URL}/groups`,
 		fetcher
 	);
 	const mutate = externalMutate || swrMutate;

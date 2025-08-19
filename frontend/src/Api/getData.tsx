@@ -136,7 +136,7 @@ export const getFilteredTopics = async (
 	try {
 		const encodedTopics = selectedTopics.join(",");
 		const response = await axios.get<Post[]>(
-			"${API_URL}/posts/filter/topics",
+			`${API_URL}/posts/filter/topics`,
 			{
 				params: { topics: encodedTopics },
 			}
@@ -177,13 +177,13 @@ export const getTrendingData = async (): Promise<TrendingData> => {
 	try {
 		// Fetch trending topics
 		const topicsResponse = await axios.get(
-			"${API_URL}/posts/trends/trending-topics"
+			`${API_URL}/posts/trends/trending-topics`
 		);
 		const topicsData = topicsResponse.data;
 
 		// Fetch trending keywords
 		const keywordsResponse = await axios.get(
-			"${API_URL}/posts/trends/trending-keywords"
+			`${API_URL}/posts/trends/trending-keywords`
 		);
 		const keywordsData = keywordsResponse.data;
 
@@ -535,7 +535,7 @@ export interface FormLink {
 export const getAllFormLinks = async (): Promise<FormLink[]> => {
 	try {
 		const response = await axios.get(
-			"${API_URL}/forms/get_all_forms",
+			`${API_URL}/forms/get_all_forms`,
 			{
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("authToken")}`,

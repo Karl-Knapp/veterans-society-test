@@ -167,7 +167,7 @@ const Donate: React.FC<Props> = () => {
             const formattedAmount = Number(amountInput).toFixed(2);
 
             const response = await axios.post<DonationResponse>(
-                '${API_URL}/donations/create-payment-intent',
+                `${API_URL}/donations/create-payment-intent`,
                 {
                     amount: formattedAmount,
                     message,

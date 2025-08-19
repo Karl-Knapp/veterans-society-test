@@ -49,7 +49,7 @@ const Login: React.FC = () => {
 		const normalizedUsername = username.toLowerCase();
 
 		try {
-			const response = await axios.post("${API_URL}/users/login", {
+			const response = await axios.post(`${API_URL}/users/login`, {
 				username: normalizedUsername,
 				password,
 			});

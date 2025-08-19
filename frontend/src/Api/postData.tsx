@@ -83,7 +83,7 @@ export const postUser = async ({
 		}
 
 		const response = await axios.post(
-			"${API_URL}/users/register",
+			`${API_URL}/users/register`,
 			payload
 		);
 
@@ -167,7 +167,7 @@ export const postLogin = async (
 ): Promise<LoginResponse> => {
 	try {
 		const response = await axios.post<LoginResponse>(
-			"${API_URL}/users/login",
+			`${API_URL}/users/login`,
 			{ username, password },
 			{ headers: { "Content-Type": "application/json" } }
 		);
@@ -210,7 +210,7 @@ export const postPostData = async (newPost: PostPostParams) => {
 		newPost.images.forEach((image) => {
 			formData.append("images", image);
 		});
-		await axios.post("${API_URL}/posts/", formData);
+		await axios.post(`${API_URL}/posts/`, formData);
 		return { success: true };
 	} catch (error) {
 		console.error("Failed to create post:", error);
@@ -237,7 +237,7 @@ export const postCommentData = async (
 
 	try {
 		// Send POST request to the API
-		await axios.post("${API_URL}/comments/", commentData);
+		await axios.post(`${API_URL}/comments/`, commentData);
 		return commentData; // Return the created comment data
 	} catch (error) {
 		console.error("Failed to add comment:", error);
@@ -282,7 +282,7 @@ export const postGroupData = async (
 		}
 
 		const response = await axios.post(
-			"${API_URL}/groups/",
+			`${API_URL}/groups/`,
 			formData,
 			{
 				headers: {
@@ -370,7 +370,7 @@ export const postChatCreateRoomData = async (
 	user: string | null
 ) => {
 	try {
-		await axios.post("${API_URL}/chat/create", {
+		await axios.post(`${API_URL}/chat/create`, {
 			room_id: roomId,
 			user: user,
 		});

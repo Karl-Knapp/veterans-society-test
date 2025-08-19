@@ -38,7 +38,7 @@ const Groups: React.FC = () => {
 
 	// Fetch all groups
 	const { data: groups, mutate } = useSWR<Group[]>(
-		"${API_URL}/groups",
+		`${API_URL}/groups`,
 		fetcher
 	);
 
