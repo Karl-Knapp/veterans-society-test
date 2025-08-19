@@ -69,7 +69,8 @@ const Chat: React.FC = () => {
 	const mobileSidebar = useDisclosure();
 
 	const { sendMessage, lastMessage } = useWebSocket(
-		`ws://34.238.233.251:8000/chat/ws?room_id=${selectedRoom}&author=${username}`,
+		`wss://api.mywebsite.com/chat/ws?room_id=${selectedRoom}&author=${username}`,
+		// `ws://34.238.233.251:8000/chat/ws?room_id=${selectedRoom}&author=${username}`,
 		{
 			shouldReconnect: () => true, // Reconnect on disconnect
 		}
