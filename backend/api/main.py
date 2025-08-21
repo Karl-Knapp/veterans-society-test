@@ -44,6 +44,20 @@ app.add_middleware(
     allow_headers=["*"], 
 )
 
+@app.middleware("http")
+async def add_csp_header(request, call_next):
+    response = await call_next(request)
+    
+    response.headers['Content-Security-Policy'] = (
+        "default-src 'self'; "
+        "script-src 'self' https://js.stripe.com https://m.stripe.network 'unsafe-inline'; "
+        "style-src 'self' https://js.stripe.com https://m.stripe.network 'unsafe-inline'; "
+        "frame-src https://js.stripe.com https://hooks.stripe.com;"
+    )
+    
+    return response
+
+
 app.include_router(users.router)
 app.include_router(chat.router)
 app.include_router(posts.router)
