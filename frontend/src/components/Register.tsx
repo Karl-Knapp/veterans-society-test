@@ -343,6 +343,9 @@ const Register: React.FC = () => {
                   >
                     <Text color={textColor}>I am a veteran</Text>
                   </Checkbox>
+                </Box>
+
+                <Box p={4} bg={checkboxBgColor} borderRadius="md" mt={6}>
                   <PrivacyAndTermsCheckbox
                     formData={formData}
                     handleInputChange={handleInputChange}
