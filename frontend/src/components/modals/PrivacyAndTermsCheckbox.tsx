@@ -59,7 +59,7 @@ function PrivacyAndTermsCheckbox({ formData, handleInputChange, textColor }: Pro
         <ModalContent>
           <ModalHeader>Privacy Policy</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>BANG1</ModalBody>
+          <ModalBody>We collect personal data from our users solely for the purpose of providing assistance to veterans. We do not share this data with any third parties. We take the privacy of our users' data very seriously and have implemented appropriate measures to protect it. If you have any questions, please feel free to contact us.</ModalBody>
         </ModalContent>
       </Modal>
 
@@ -69,7 +69,7 @@ function PrivacyAndTermsCheckbox({ formData, handleInputChange, textColor }: Pro
         <ModalContent>
           <ModalHeader>Terms of Service</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>BANG2</ModalBody>
+          <ModalBody>The information provided on this website is for general informational purposes only. While we strive to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on website for any purpose. Any reliance you place on such information is strictly at your own risk In no event will be liable for any loss or damage including without limitation, indirect consequential loss or damage, or any loss or damage whatsoever arising from of data or profits arising of, or in with, the use of this website.</ModalBody>
         </ModalContent>
       </Modal>
     </>
