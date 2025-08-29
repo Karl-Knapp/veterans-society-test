@@ -41,6 +41,8 @@ def get_password_hash(password: str) -> str:
 async def register_user(user: UserCreate):
     if not user.isVeteran:
         raise HTTPException(status_code=403, detail="This is a veteran community only.")
+    if not user.agreedToDisclosures:
+        raise HTTPException(status_code=400, detail="You must agree to the Privacy Policy and Terms of Service.")
     
     normalized_username = user.username.lower()
     normalized_email = user.email.lower()
@@ -81,7 +83,8 @@ async def register_user(user: UserCreate):
         'lastName': user.lastName,
         'isVeteran': user.isVeteran,
         'interests': user.interests,
-        'displayName': user.username
+        'displayName': user.username,
+        'agreedToDisclosures': user.agreedToDisclosures
     }
 
     if user.email:

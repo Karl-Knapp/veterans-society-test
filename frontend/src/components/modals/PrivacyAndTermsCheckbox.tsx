@@ -13,7 +13,7 @@ import {
 
 interface Props {
   formData: {
-    agreedToPrivacyPolicy: boolean;
+    agreedToDisclosures: boolean;
   };
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   textColor: string;
@@ -35,8 +35,8 @@ function PrivacyAndTermsCheckbox({ formData, handleInputChange, textColor }: Pro
   return (
     <>
       <Checkbox
-        name="agreedToPrivacyPolicy"
-        isChecked={formData.agreedToPrivacyPolicy}
+        name="agreedToDisclosures"
+        isChecked={formData.agreedToDisclosures}
         onChange={handleInputChange}
         colorScheme="gray"
       >

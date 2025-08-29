@@ -40,7 +40,7 @@ interface FormData {
   isVeteran: boolean;
   weight: number;
   height: number;
-  agreedToPrivacyPolicy: boolean;
+  agreedToDisclosures: boolean;
 }
 
 const Register: React.FC = () => {
@@ -63,7 +63,7 @@ const Register: React.FC = () => {
     isVeteran: false,
     weight: 0,
     height: 0,
-    agreedToPrivacyPolicy: false,
+    agreedToDisclosures: false,
   });
 
   // Initialize errors state
@@ -109,7 +109,7 @@ const Register: React.FC = () => {
         return;
       }
 
-      if (!formData.agreedToPrivacyPolicy) {
+      if (!formData.agreedToDisclosures) {
       toast({
         title: 'You must agree to the Privacy Policy and Terms of Service to continue.',
         status: 'error',

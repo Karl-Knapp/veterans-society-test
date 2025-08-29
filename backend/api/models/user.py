@@ -18,7 +18,8 @@ class UserCreate(BaseModel):
     isVeteran: bool
     weight: Optional[Decimal] = None 
     height: Optional[Decimal] = None
-    profilePic: Optional[str] = None 
+    profilePic: Optional[str] = None
+    agreedToDisclosures: Optional[bool]
 
     @validator('employmentStatus', 'workLocation', 'liveLocation', 'weight', 'height', always=True)
     def validate_veteran_fields(cls, v, values, field):
@@ -44,6 +45,7 @@ class UserResponse(BaseModel):
     height: Optional[int]  # Height in inches
     weight: Optional[int]
     profilePic: Optional[str]
+    agreedToDisclosures: Optional[bool]
 
     @validator('height', 'weight', pre=True, always=True)
     def convert_decimal_to_int(cls, v):
@@ -73,6 +75,7 @@ class UserUpdateRequest(BaseModel):
     weight: Optional[Decimal] = None
     height: Optional[Decimal] = None
     profilePic: Optional[UploadFile] = None
+    agreedToDisclosures: Optional[bool] = None
 
     @validator('employmentStatus', 'workLocation', 'liveLocation', 'weight', 'height', always=True)
     def validate_veteran_fields(cls, v, values, field):
