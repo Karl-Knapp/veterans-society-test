@@ -17,11 +17,13 @@ import {
   AlertIcon,
   Grid,
   useToast,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { postUser } from '../Api/postData';
 import { useAuth } from '../Auth/Auth';
+import PrivacyAndTermsCheckbox from "./modals/PrivacyAndTermsCheckbox";
+
 
 interface FormData {
   firstName: string;
@@ -38,6 +40,7 @@ interface FormData {
   isVeteran: boolean;
   weight: number;
   height: number;
+  agreedToPrivacyPolicy: boolean;
 }
 
 const Register: React.FC = () => {
@@ -60,6 +63,7 @@ const Register: React.FC = () => {
     isVeteran: false,
     weight: 0,
     height: 0,
+    agreedToPrivacyPolicy: false,
   });
 
   // Initialize errors state
@@ -339,6 +343,11 @@ const Register: React.FC = () => {
                   >
                     <Text color={textColor}>I am a veteran</Text>
                   </Checkbox>
+                  <PrivacyAndTermsCheckbox
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    textColor={textColor}
+                  />
                 </Box>
 
                 <Button
