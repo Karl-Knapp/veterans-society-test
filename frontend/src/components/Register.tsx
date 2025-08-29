@@ -108,6 +108,17 @@ const Register: React.FC = () => {
         });
         return;
       }
+
+      if (!formData.agreedToPrivacyPolicy) {
+      toast({
+        title: 'You must agree to the Privacy Policy and Terms of Service to continue.',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
     } else if (step === 2 && formData.isVeteran) {
       // Existing validation for step 2 for veterans
       const requiredFields = ['liveLocation', 'employmentStatus', 'weight', 'height'];
