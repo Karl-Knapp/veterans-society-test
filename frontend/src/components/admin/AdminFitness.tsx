@@ -21,6 +21,7 @@ import { deleteFitnessTaskData } from '../../Api/deleteData';
 import { getOtherUserData } from '../../Api/getData';
 import { Delete, ArrowLeft } from "react-feather";
 import { useParams, useNavigate } from "react-router-dom";
+import api from "../../Api/api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -77,7 +78,7 @@ const AdminFitness: React.FC = () => {
 
     const fetchTasks = async (user: string) => {
         try {
-            const response = await axios.get(`${API_URL}/fitness/${user}`, {
+            const response = await api.get(`${API_URL}/fitness/${user}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`
