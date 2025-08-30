@@ -24,7 +24,6 @@ import Post from "./Post";
 import CreatePostCard from "./CreatePostCard";
 import { useAuth } from "../Auth/Auth";
 import { TrendingUp } from "react-feather";
-import api from "../Api/api";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface Post {
@@ -38,7 +37,6 @@ interface Post {
 	timestamp: string;
 }
 
-const fetcher = (url: string) => api.get(url).then((res) => res.data);
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const Feed = () => {

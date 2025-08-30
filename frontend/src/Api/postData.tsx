@@ -1,7 +1,6 @@
 import axios from "axios";
 import { UseToastOptions } from "@chakra-ui/react";
 const API_URL = import.meta.env.VITE_API_URL;
-import api from "./api";
 
 interface PostUserParams {
 	formData: any;
@@ -83,7 +82,6 @@ export const postUser = async ({
 			payload.height = formData.height || 0;
 		}
 
-		const response = await api.post(
 		const response = await axios.post(
 			`${API_URL}/users/register`,
 			payload
@@ -168,7 +166,6 @@ export const postLogin = async (
 	password: string
 ): Promise<LoginResponse> => {
 	try {
-		const response = await api.post<LoginResponse>(
 		const response = await axios.post<LoginResponse>(
 			`${API_URL}/users/login`,
 			{ username, password },

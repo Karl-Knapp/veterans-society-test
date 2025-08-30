@@ -1,6 +1,5 @@
 import axios from "axios";
 import { UseToastOptions } from "@chakra-ui/react";
-import api from "./api";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface PutUserDataParams {
@@ -32,7 +31,6 @@ export const putUserData = async ({
 		const formData = new FormData();
 		formData.append(field, value);
 
-		const res = await api.put(
 		const res = await axios.put(
 			`${API_URL}/users/${username}`,
 			formData,
@@ -71,7 +69,6 @@ export const putUserData = async ({
 		}
 	} catch (error: unknown) {
 		const message =
-			api.isAxiosError(error) && error.response?.data?.detail
 			axios.isAxiosError(error) && error.response?.data?.detail
 				? error.response.data.detail
 				: (error as Error).message;

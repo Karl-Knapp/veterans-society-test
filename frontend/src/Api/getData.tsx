@@ -1,6 +1,5 @@
 import axios from "axios";
 import { UseToastOptions, useToast } from "@chakra-ui/react";
-import api from "./api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -24,7 +23,6 @@ export const getUserData = async ({
 			throw new Error("Authentication token not found.");
 		}
 
-		const response = await api.get(
 		const response = await axios.get(
 			`${API_URL}/users/${username}/visit`,
 			{
@@ -60,7 +58,6 @@ export const getUserData = async ({
 		setUserData(processedData);
 	} catch (error: unknown) {
 		const message =
-			api.isAxiosError(error) && error.response?.data?.detail
 			axios.isAxiosError(error) && error.response?.data?.detail
 				? error.response.data.detail
 				: (error as Error).message;
