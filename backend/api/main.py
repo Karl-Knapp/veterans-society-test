@@ -1,5 +1,5 @@
 # api/main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from api.config import login_manager
 from api.routers import users, posts, comments, chat, groups, fitness, overpass, donations, forms
@@ -43,6 +43,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"], 
 )
+
+@app.middleware("http")
+async def force_https_redirects(request: Request, call_next):
+    # Check if request came through HTTPS (ALB sets this header)
+    if request.headers.get("x-forwarded-proto") == "https":
+        request.scope["scheme"] = "https"
+    response = await call_next(request)
+    return response
 
 app.include_router(users.router)
 app.include_router(chat.router)
