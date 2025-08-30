@@ -23,6 +23,10 @@ export const getUserData = async ({
 			throw new Error("Authentication token not found.");
 		}
 
+		console.log("BANG!")
+		console.log("API request URL:", `${API_URL}/users/${username}/visit`);
+		console.log("BANG!")
+
 		const response = await axios.get(
 			`${API_URL}/users/${username}/visit`,
 			{
