@@ -37,7 +37,15 @@ interface Post {
 	timestamp: string;
 }
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+// const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+const fetcher = async (url: string) => {
+  console.log('Fetching URL:', url);
+  const response = await fetch(url);
+  console.log('Response URL:', response.url);
+  return response.json();
+};
+
 
 const Feed = () => {
 	const toast = useToast();
@@ -45,8 +53,7 @@ const Feed = () => {
 		data: posts,
 		error,
 		mutate,
-	   } = useSWR<Post[]>(`https://api.morganvalleyweb.com/posts`, fetcher);
-	// } = useSWR<Post[]>(`${API_URL}/posts`, fetcher);
+	} = useSWR<Post[]>(`${API_URL}/posts`, fetcher);
 	const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 	const [activePosts, setActivePosts] = useState<Post[]>([]);
 	const [isLoadingTrending, setIsLoadingTrending] = useState(true);
