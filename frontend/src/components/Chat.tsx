@@ -68,17 +68,34 @@ const Chat: React.FC = () => {
 	const viewMembersDrawer = useDisclosure();
 	const mobileSidebar = useDisclosure();
 
-	const { sendMessage, lastMessage } = useWebSocket(
-		`wss://api.mywebsite.com/chat/ws?room_id=${selectedRoom}&author=${username}`,
 		// `ws://34.238.233.251:8000/chat/ws?room_id=${selectedRoom}&author=${username}`,
-		{
-			shouldReconnect: () => true, // Reconnect on disconnect
-		}
+
+	const { sendMessage, lastMessage } = useWebSocket(
+	selectedRoom
+		? `wss://api.mywebsite.com/chat/ws?room_id=${selectedRoom}&author=${username}`
+		: null,
+	{ shouldReconnect: () => true }
 	);
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 	};
+
+	useEffect(() => {
+  if (!selectedRoom) return;
+
+  const ws = new WebSocket(
+    `wss://api.mywebsite.com/chat/ws?room_id=${selectedRoom}&author=${username}`
+  );
+
+  ws.onopen = () => console.log("Connected to WebSocket!");
+  ws.onmessage = (e) => console.log("Message from server:", e.data);
+  ws.onerror = (e) => console.error("WebSocket error:", e);
+  ws.onclose = () => console.log("WebSocket closed");
+
+  return () => ws.close();
+}, [selectedRoom, username]);
+
 
 	useEffect(() => {
 		scrollToBottom();
