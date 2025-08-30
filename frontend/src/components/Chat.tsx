@@ -72,7 +72,7 @@ const Chat: React.FC = () => {
 
 	const { sendMessage, lastMessage } = useWebSocket(
 	selectedRoom
-		? `wss://api.mywebsite.com/chat/ws?room_id=${selectedRoom}&author=${username}`
+		? `wss://api.morganvalleyweb.com/chat/ws?room_id=${selectedRoom}&author=${username}`
 		: null,
 	{ shouldReconnect: () => true }
 	);
@@ -85,7 +85,7 @@ const Chat: React.FC = () => {
   if (!selectedRoom) return;
 
   const ws = new WebSocket(
-    `wss://api.mywebsite.com/chat/ws?room_id=${selectedRoom}&author=${username}`
+    `wss://api.morganvalleyweb.com/chat/ws?room_id=${selectedRoom}&author=${username}`
   );
 
   ws.onopen = () => console.log("Connected to WebSocket!");
