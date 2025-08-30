@@ -350,7 +350,7 @@ export const postGroupPostData = async (
 		formData.append("createdAt", post.createdAt);
 
 		const response = await axios.post(
-			`${API_URL}/groups/${groupId}/posts`,
+			`${API_URL}/groups/${groupId}/posts/`,
 			formData,
 			{
 				headers: {

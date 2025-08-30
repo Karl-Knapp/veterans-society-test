@@ -53,7 +53,7 @@ const Feed = () => {
 		data: posts,
 		error,
 		mutate,
-	} = useSWR<Post[]>(`${API_URL}/posts`, fetcher);
+	} = useSWR<Post[]>(`${API_URL}/posts/`, fetcher);
 	const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 	const [activePosts, setActivePosts] = useState<Post[]>([]);
 	const [isLoadingTrending, setIsLoadingTrending] = useState(true);
@@ -111,7 +111,7 @@ const Feed = () => {
 	const handleMutate = async () => {
 		try {
 			const updatedPosts = await mutate(async () => {
-				const response = await fetcher(`${API_URL}/posts`);
+				const response = await fetcher(`${API_URL}/posts/`);
 				return response.sort(
 					(a: Post, b: Post) =>
 						new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
