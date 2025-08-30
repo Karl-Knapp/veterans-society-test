@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/Auth";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import api from "../Api/api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -50,7 +49,6 @@ const Login: React.FC = () => {
 		const normalizedUsername = username.toLowerCase();
 
 		try {
-			const response = await api.post(`${API_URL}/users/login`, {
 			const response = await axios.post(`${API_URL}/users/login`, {
 				username: normalizedUsername,
 				password,
