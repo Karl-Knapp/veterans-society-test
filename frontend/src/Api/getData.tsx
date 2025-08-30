@@ -328,10 +328,12 @@ export async function getVeteranResources(
 	lon: number
 ): Promise<VeteranResource[]> {
 	try {
+
+		const testLat = 38.9072;
+		const testLon = -77.0369;
 		// First load without geocoding for faster initial response
 		const response = await fetch(
-			// `${API_URL}/overpass/veteran-resources?lat=${lat}&lon=${lon}&geocode=true`
-			`${API_URL}/overpass/veteran-resources?lat=38.9072&lon=-118.2437&geocode=true`
+			`${API_URL}/overpass/veteran-resources?lat=${testLat}&lon=${testLon}&geocode=true`
 		);
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
