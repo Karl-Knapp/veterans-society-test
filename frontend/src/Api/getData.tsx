@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UseToastOptions, useToast } from "@chakra-ui/react";
+import api from "./api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -23,7 +24,7 @@ export const getUserData = async ({
 			throw new Error("Authentication token not found.");
 		}
 
-		const response = await axios.get(
+		const response = await api.get(
 			`${API_URL}/users/${username}/visit`,
 			{
 				headers: {
@@ -58,7 +59,7 @@ export const getUserData = async ({
 		setUserData(processedData);
 	} catch (error: unknown) {
 		const message =
-			axios.isAxiosError(error) && error.response?.data?.detail
+			api.isAxiosError(error) && error.response?.data?.detail
 				? error.response.data.detail
 				: (error as Error).message;
 
@@ -80,7 +81,7 @@ export const getUserProfilePic = async (username: string) => {
 			throw new Error("Authentication token not found.");
 		}
 
-		const response = await axios.get(
+		const response = await api.get(
 			`${API_URL}/users/pic/${username}`,
 			{
 				headers: {
@@ -92,7 +93,7 @@ export const getUserProfilePic = async (username: string) => {
 		return response.data.profilePic;
 	} catch (error: unknown) {
 		const message =
-			axios.isAxiosError(error) && error.response?.data?.detail
+			api.isAxiosError(error) && error.response?.data?.detail
 				? error.response.data.detail
 				: (error as Error).message;
 		console.log(message);
@@ -108,7 +109,7 @@ interface Comment {
 
 export const getCommentData = async (postId: string) => {
 	try {
-		const response = await axios.get<Comment[]>(
+		const response = await api.get<Comment[]>(
 			`${API_URL}/comments/${postId}`
 		);
 		return response.data; // Return the fetched comments
@@ -135,7 +136,7 @@ export const getFilteredTopics = async (
 ) => {
 	try {
 		const encodedTopics = selectedTopics.join(",");
-		const response = await axios.get<Post[]>(
+		const response = await api.get<Post[]>(
 			`${API_URL}/posts/filter/topics`,
 			{
 				params: { topics: encodedTopics },
@@ -176,13 +177,13 @@ type TrendingData = {
 export const getTrendingData = async (): Promise<TrendingData> => {
 	try {
 		// Fetch trending topics
-		const topicsResponse = await axios.get(
+		const topicsResponse = await api.get(
 			`${API_URL}/posts/trends/trending-topics`
 		);
 		const topicsData = topicsResponse.data;
 
 		// Fetch trending keywords
-		const keywordsResponse = await axios.get(
+		const keywordsResponse = await api.get(
 			`${API_URL}/posts/trends/trending-keywords`
 		);
 		const keywordsData = keywordsResponse.data;
@@ -224,7 +225,7 @@ export type GroupData = {
 // Get all groups
 export const getGroupsData = async (): Promise<GroupData[]> => {
 	try {
-		const response = await axios.get(`${API_URL}/groups/`, {
+		const response = await api.get(`${API_URL}/groups/`, {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -252,7 +253,7 @@ export const getSearchGroupsData = async (
 			  )}`
 			: `${API_URL}/groups/search/`;
 
-		const response = await axios.get(url, {
+		const response = await api.get(url, {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -269,7 +270,7 @@ export const getSearchGroupsData = async (
 
 export const getChatRoomsData = async (user: string | null) => {
 	try {
-		const response = await axios.get(
+		const response = await api.get(
 			`${API_URL}/chat?user=${user}`
 		);
 		return response.data;
@@ -288,7 +289,7 @@ interface MessageProp {
 
 export const getChatMessagesData = async (roomId: string) => {
 	try {
-		const response = await axios.get(`${API_URL}/chat/messages`, {
+		const response = await api.get(`${API_URL}/chat/messages`, {
 			params: { room_id: roomId },
 		});
 		const newMessages = response.data.map((msg: MessageProp) => {
@@ -305,7 +306,7 @@ export const getChatMessagesData = async (roomId: string) => {
 
 export const getChatRoomMembersData = async (roomId: string) => {
 	try {
-		const response = await axios.get(`${API_URL}/chat/users`, {
+		const response = await api.get(`${API_URL}/chat/users`, {
 			params: { room_id: roomId },
 		});
 		return response.data;
@@ -452,7 +453,7 @@ export const searchUsers = async (
 	query: string
 ): Promise<SearchUserResponse[]> => {
 	try {
-		const response = await axios.get<SearchUserResponse[]>(
+		const response = await api.get<SearchUserResponse[]>(
 			`${API_URL}/users/${logged_in_username}/search?query=${query}`
 		);
 		return response.data;
@@ -476,7 +477,7 @@ export const getOtherUserData = async ({
 	const token = localStorage.getItem("authToken");
 
 	try {
-		const response = await axios.get(
+		const response = await api.get(
 			`${API_URL}/users/${username}/visit`,
 			{
 				headers: {
@@ -506,7 +507,7 @@ export const getOtherUserData = async ({
 export const getAllUsers = async (): Promise<any[]> => {
 	try {
 		const token = localStorage.getItem("authToken");
-		const response = await axios.get(
+		const response = await api.get(
 			`${API_URL}/users/admin/all`,
 			{
 				headers: {
@@ -521,7 +522,7 @@ export const getAllUsers = async (): Promise<any[]> => {
 	} catch (error: unknown) {
 		console.error("Error fetching all users:", error);
 		const message =
-			axios.isAxiosError(error) && error.response?.data?.detail
+			api.isAxiosError(error) && error.response?.data?.detail
 				? error.response.data.detail
 				: (error as Error).message;
 		throw new Error(`Failed to fetch users: ${message}`);
@@ -534,7 +535,7 @@ export interface FormLink {
 
 export const getAllFormLinks = async (): Promise<FormLink[]> => {
 	try {
-		const response = await axios.get(
+		const response = await api.get(
 			`${API_URL}/forms/get_all_forms`,
 			{
 				headers: {
