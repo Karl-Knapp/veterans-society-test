@@ -81,6 +81,7 @@ const Fitness: React.FC = () => {
 	const fetchTasks = async (): Promise<FitnessTask[]> => {
 		try {
 			const response = await api.get(
+			const response = await axios.get(
 				`${API_URL}/fitness/${username}`,
 				{
 					headers: { "Content-Type": "application/json" },

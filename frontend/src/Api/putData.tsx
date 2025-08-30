@@ -33,6 +33,7 @@ export const putUserData = async ({
 		formData.append(field, value);
 
 		const res = await api.put(
+		const res = await axios.put(
 			`${API_URL}/users/${username}`,
 			formData,
 			{
@@ -71,6 +72,7 @@ export const putUserData = async ({
 	} catch (error: unknown) {
 		const message =
 			api.isAxiosError(error) && error.response?.data?.detail
+			axios.isAxiosError(error) && error.response?.data?.detail
 				? error.response.data.detail
 				: (error as Error).message;
 
@@ -128,7 +130,7 @@ export const putPostData = async (
 			throw new Error("No fields provided for update.");
 		}
 
-		const response = await api.put(
+		const response = await axios.put(
 			`${API_URL}/posts/${postId}`,
 			payload,
 			{
@@ -168,7 +170,7 @@ export const putGroupData = async (
 	groupData: GroupData
 ): Promise<GroupData> => {
 	try {
-		const response = await api.put(
+		const response = await axios.put(
 			`${API_URL}/groups/${groupId}`,
 			groupData,
 			{
@@ -209,7 +211,7 @@ export const putGroupInfoData = async (
 			formData.append("image", image);
 		}
 
-		const response = await api.put(
+		const response = await axios.put(
 			`${API_URL}/groups/${groupId}/update-info`,
 			formData,
 			{
@@ -231,7 +233,7 @@ export const putJoinRoomData = async (
 	user: string | null
 ): Promise<void> => {
 	try {
-		await api.put(`${API_URL}/chat/join`, {
+		await axios.put(`${API_URL}/chat/join`, {
 			room_id: roomId,
 			user,
 		});
@@ -246,7 +248,7 @@ export const putLeaveRoomData = async (
 	user: string | null
 ): Promise<void> => {
 	try {
-		await api.put(`${API_URL}/chat/leave`, {
+		await axios.put(`${API_URL}/chat/leave`, {
 			room_id: roomId,
 			user,
 		});
@@ -315,7 +317,7 @@ export const updateUserData = async (
 			throw new Error("Authentication token not found");
 		}
 
-		const response = await api.put(
+		const response = await axios.put(
 			`${API_URL}/users/admin/${username}/update`,
 			formData,
 			{
@@ -334,7 +336,7 @@ export const updateUserData = async (
 		// Improved error handling
 		let errorMessage = "Unknown error occurred";
 
-		if (api.isAxiosError(error)) {
+		if (axios.isAxiosError(error)) {
 			// Handle Axios errors better
 			if (error.response?.data?.detail) {
 				errorMessage = error.response.data.detail;

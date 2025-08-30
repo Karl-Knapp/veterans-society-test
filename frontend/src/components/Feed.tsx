@@ -18,6 +18,7 @@ import {
 	ListItem,
 	ListIcon,
 	useColorModeValue,
+	Flex,
 } from "@chakra-ui/react";
 import Post from "./Post";
 import CreatePostCard from "./CreatePostCard";
@@ -38,6 +39,7 @@ interface Post {
 }
 
 const fetcher = (url: string) => api.get(url).then((res) => res.data);
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const Feed = () => {
 	const toast = useToast();

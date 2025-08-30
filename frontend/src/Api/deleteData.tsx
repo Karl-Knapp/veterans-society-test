@@ -2,10 +2,12 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 import api from "./api";
 
+
 export const deleteCommentData = async (commentId: string) => {
 	try {
 		// Send DELETE request to the API
 		await api.delete(`${API_URL}/comments/${commentId}`);
+		await axios.delete(`${API_URL}/comments/${commentId}`);
 	} catch (error) {
 		// Handle errors gracefully
 		console.error(`Failed to delete comment with ID ${commentId}:`, error);
@@ -16,6 +18,7 @@ export const deleteCommentData = async (commentId: string) => {
 export const deleteGroupData = async (groupId: string): Promise<void> => {
 	try {
 		await api.delete(`${API_URL}/groups/${groupId}`, {
+		await axios.delete(`${API_URL}/groups/${groupId}`, {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -30,6 +33,7 @@ export const deletePostData = async (postId: string): Promise<void> => {
 	try {
 		const token = localStorage.getItem("authToken");
 		await api.delete(`${API_URL}/posts/${postId}`, {
+		await axios.delete(`${API_URL}/posts/${postId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -47,6 +51,7 @@ export const deleteGroupPostData = async (
 ): Promise<void> => {
 	try {
 		await api.delete(
+		await axios.delete(
 			`${API_URL}/groups/${groupId}/posts/${postId}`,
 			{
 				headers: {
@@ -70,6 +75,7 @@ export const deleteFitnessTaskData = async (
 	taskId: string
 ): Promise<void> => {
 	await api.delete(
+	await axios.delete(
 		`${API_URL}/fitness/${username}/${taskId}/delete`,
 		{
 			headers: {
@@ -85,6 +91,7 @@ export const deleteUser = async (username: string): Promise<void> => {
 		const token = localStorage.getItem("authToken");
 
 		await api.delete(`${API_URL}/users/admin/${username}`, {
+		await axios.delete(`${API_URL}/users/admin/${username}`, {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
