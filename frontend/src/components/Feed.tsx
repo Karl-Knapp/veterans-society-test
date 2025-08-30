@@ -45,7 +45,8 @@ const Feed = () => {
 		data: posts,
 		error,
 		mutate,
-	} = useSWR<Post[]>(`${API_URL}/posts`, fetcher);
+	   } = useSWR<Post[]>(`https://api.morganvalleyweb.com/posts`, fetcher);
+	// } = useSWR<Post[]>(`${API_URL}/posts`, fetcher);
 	const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 	const [activePosts, setActivePosts] = useState<Post[]>([]);
 	const [isLoadingTrending, setIsLoadingTrending] = useState(true);
