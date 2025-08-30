@@ -37,14 +37,14 @@ interface Post {
 	timestamp: string;
 }
 
-// const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-const fetcher = async (url: string) => {
-  console.log('Fetching URL:', url);
-  const response = await fetch(url);
-  console.log('Response URL:', response.url);
-  return response.json();
-};
+// const fetcher = async (url: string) => {
+//   console.log('Fetching URL:', url);
+//   const response = await fetch(url);
+//   console.log('Response URL:', response.url);
+//   return response.json();
+// };
 
 
 const Feed = () => {

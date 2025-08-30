@@ -50,7 +50,7 @@ const Profile: React.FC = () => {
   // Fetch user data on component mount
   useEffect(() => {
     if (username && authToken) {
-      console.log("Fetching user data for:", username);
+      // console.log("Fetching user data for:", username);
       getUserData({ 
         username, 
         setUserData, 
@@ -61,9 +61,9 @@ const Profile: React.FC = () => {
   }, [username, toast, authToken]);
 
   // After data is loaded
-  useEffect(() => {
-    console.log("User data updated:", userData);
-  }, [userData]);
+  // useEffect(() => {
+  //   console.log("User data updated:", userData);
+  // }, [userData]);
 
   const handleAddImage = () => {
     fileInputRef.current?.click();

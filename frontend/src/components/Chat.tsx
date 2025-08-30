@@ -88,11 +88,6 @@ const Chat: React.FC = () => {
     `wss://api.morganvalleyweb.com/chat/ws?room_id=${selectedRoom}&author=${username}`
   );
 
-  ws.onopen = () => console.log("Connected to WebSocket!");
-  ws.onmessage = (e) => console.log("Message from server:", e.data);
-  ws.onerror = (e) => console.error("WebSocket error:", e);
-  ws.onclose = () => console.log("WebSocket closed");
-
   return () => ws.close();
 }, [selectedRoom, username]);
 
