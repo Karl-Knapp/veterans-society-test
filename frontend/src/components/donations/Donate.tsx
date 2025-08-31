@@ -19,8 +19,8 @@ import {
 } from '@chakra-ui/react';
 import { PaymentElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import axios from 'axios';
 import type { StripeElementsOptions } from '@stripe/stripe-js';
+import api from "../../Api/api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -166,7 +166,7 @@ const Donate: React.FC<Props> = () => {
         try {
             const formattedAmount = Number(amountInput).toFixed(2);
 
-            const response = await axios.post<DonationResponse>(
+            const response = await api.post<DonationResponse>(
                 `${API_URL}/donations/create-payment-intent`,
                 {
                     amount: formattedAmount,

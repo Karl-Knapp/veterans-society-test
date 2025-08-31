@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UseToastOptions } from "@chakra-ui/react";
+import api from "./api";
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface PutUserDataParams {
@@ -31,7 +32,7 @@ export const putUserData = async ({
 		const formData = new FormData();
 		formData.append(field, value);
 
-		const res = await axios.put(
+		const res = await api.put(
 			`${API_URL}/users/${username}`,
 			formData,
 			{
@@ -127,7 +128,7 @@ export const putPostData = async (
 			throw new Error("No fields provided for update.");
 		}
 
-		const response = await axios.put(
+		const response = await api.put(
 			`${API_URL}/posts/${postId}`,
 			payload,
 			{
@@ -167,7 +168,7 @@ export const putGroupData = async (
 	groupData: GroupData
 ): Promise<GroupData> => {
 	try {
-		const response = await axios.put(
+		const response = await api.put(
 			`${API_URL}/groups/${groupId}`,
 			groupData,
 			{
@@ -208,7 +209,7 @@ export const putGroupInfoData = async (
 			formData.append("image", image);
 		}
 
-		const response = await axios.put(
+		const response = await api.put(
 			`${API_URL}/groups/${groupId}/update-info`,
 			formData,
 			{
@@ -230,7 +231,7 @@ export const putJoinRoomData = async (
 	user: string | null
 ): Promise<void> => {
 	try {
-		await axios.put(`${API_URL}/chat/join`, {
+		await api.put(`${API_URL}/chat/join`, {
 			room_id: roomId,
 			user,
 		});
@@ -245,7 +246,7 @@ export const putLeaveRoomData = async (
 	user: string | null
 ): Promise<void> => {
 	try {
-		await axios.put(`${API_URL}/chat/leave`, {
+		await api.put(`${API_URL}/chat/leave`, {
 			room_id: roomId,
 			user,
 		});
@@ -314,7 +315,7 @@ export const updateUserData = async (
 			throw new Error("Authentication token not found");
 		}
 
-		const response = await axios.put(
+		const response = await api.put(
 			`${API_URL}/users/admin/${username}/update`,
 			formData,
 			{

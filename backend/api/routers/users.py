@@ -142,7 +142,7 @@ async def login_user(request: Request, login_data: LoginRequest):
     # Generate a token for the user
     token = login_manager.create_access_token(
         data={"sub": username},
-        expires=timedelta(minutes=10)
+        expires=timedelta(hours=8)
     )
 
     role = "veteran"
@@ -158,6 +158,19 @@ async def login_user(request: Request, login_data: LoginRequest):
 @router.get("/logout")
 def logout(user: dict = Depends(login_manager)):
     return RedirectResponse(url="/", status_code=303)
+
+@router.post("/auth/refresh")
+async def refresh_token(current_user: dict = Depends(login_manager)):
+    """Refresh the user's access token"""
+    try:
+        # Create new token with same 8-hour expiration
+        new_token = login_manager.create_access_token(
+            data={"sub": current_user["username"]},
+            expires=timedelta(hours=8)
+        )
+        return {"access_token": new_token, "token_type": "bearer"}
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Token refresh failed")
 
 @router.get("/admin/all", response_model=List[UserResponse])
 async def get_all_users(user: dict = Depends(login_manager)):
