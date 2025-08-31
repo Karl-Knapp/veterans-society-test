@@ -4,6 +4,7 @@ from boto3.dynamodb.conditions import Key
 from api.db_setup import dynamodb
 from pydantic import BaseModel
 import uuid
+from api.config.default_tasks import DEFAULT_TASKS
 
 router = APIRouter(
     prefix="/fitness",
@@ -14,6 +15,32 @@ table = dynamodb.Table('fitness_tasks')
 
 class TaskCreate(BaseModel):
     description: str
+    category: str = "general"
+
+async def create_default_tasks_for_user(username: str):
+    """Create default tasks for a new user"""
+    try:
+        tasks_created = []
+        
+        for task_template in DEFAULT_TASKS:
+            task_id = str(uuid.uuid4())
+            task_item = {
+                'username': username,
+                'task_id': task_id,
+                'description': task_template['description'],
+                'category': task_template.get('category', 'general'),
+                'is_finished': False
+            }
+            
+            fitness_table.put_item(Item=task_item)
+            tasks_created.append(task_item)
+            
+        return tasks_created
+        
+    except Exception as e:
+        print(f"Error creating default tasks for {username}: {e}")
+        # Don't fail registration if task creation fails
+        return []
 
 @router.get("/{username}")
 async def get_fitness_tasks(username: str):
