@@ -17,7 +17,6 @@ import {
 	ListItem,
 	ListIcon,
 	useColorModeValue,
-	Flex,
 } from "@chakra-ui/react";
 import Post from "./Post";
 import CreatePostCard from "./CreatePostCard";
