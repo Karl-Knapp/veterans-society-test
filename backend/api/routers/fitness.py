@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key
 from api.db_setup import dynamodb
 from pydantic import BaseModel
 import uuid
-from api.config.default_tasks import DEFAULT_TASKS
+from api.configa.default_tasks import DEFAULT_TASKS
 
 router = APIRouter(
     prefix="/fitness",
