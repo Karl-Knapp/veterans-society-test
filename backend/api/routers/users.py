@@ -14,7 +14,7 @@ from datetime import timedelta
 from botocore.exceptions import ClientError
 import logging
 from decimal import Decimal
-from api.services.task_service import create_default_tasks_for_user
+from api.routers.fitness import create_default_tasks_for_user
 
 router = APIRouter(
     prefix="/users",
@@ -106,7 +106,7 @@ async def register_user(user: UserCreate):
         # Save the user in DynamoDB
         users_table.put_item(Item=user_item)
         await create_default_tasks_for_user(normalized_username)
-        
+
     except ClientError as e:
         logger.error(f"Failed to save user to DynamoDB: {e}")
         error_code = e.response['Error']['Code']
