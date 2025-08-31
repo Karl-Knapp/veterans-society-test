@@ -32,7 +32,7 @@ async def create_default_tasks_for_user(username: str):
                 'is_finished': False
             }
             
-            fitness_table.put_item(Item=task_item)
+            table.put_item(Item=task_item)
             tasks_created.append(task_item)
             
         return tasks_created
