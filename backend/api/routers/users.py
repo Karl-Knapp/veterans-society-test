@@ -15,6 +15,10 @@ from botocore.exceptions import ClientError
 import logging
 from decimal import Decimal
 from api.routers.fitness import create_default_tasks_for_user
+import secrets
+from datetime import datetime, timedelta
+from api.services.email_service import send_verification_email
+from boto3.dynamodb.conditions import Attr
 
 router = APIRouter(
     prefix="/users",
@@ -101,10 +105,24 @@ async def register_user(user: UserCreate):
         user_item['height'] = Decimal(user.height) if user.height is not None else None  # Height in inches
         user_item['weight'] = Decimal(user.weight) if user.weight is not None else None  # Weight in pounds
         
+    # Generate verification token with expiration
+    verification_token = secrets.token_urlsafe(32)
+    token_expiry = datetime.utcnow() + timedelta(hours=24)
+    
+    # Add to user item
+    user_item['email_verified'] = False
+    user_item['verification_token'] = verification_token
+    user_item['token_expiry'] = token_expiry.isoformat()
 
     try:
         # Save the user in DynamoDB
         users_table.put_item(Item=user_item)
+
+        if user.email:
+            email_sent = await send_verification_email(user.email, verification_token, user.username)
+            if not email_sent:
+                logger.warning(f"Failed to send verification email to {user.email}")
+
         await create_default_tasks_for_user(normalized_username)
 
     except ClientError as e:
@@ -115,6 +133,88 @@ async def register_user(user: UserCreate):
         raise HTTPException(status_code=500, detail="Failed to save user data.")
 
     return user_item
+
+@router.get("/verify-email")
+async def verify_email(token: str):
+    """Verify email with token"""
+    try:
+        # Query users table for verification token
+        response = users_table.scan(
+            FilterExpression=Attr('verification_token').eq(token)
+        )
+        
+        if not response['Items']:
+            raise HTTPException(status_code=400, detail="Invalid or expired verification token")
+        
+        user = response['Items'][0]
+        
+        # Check if token is expired
+        if 'token_expiry' in user:
+            expiry = datetime.fromisoformat(user['token_expiry'])
+            if datetime.utcnow() > expiry:
+                raise HTTPException(status_code=400, detail="Verification token has expired")
+        
+        # Update user as verified
+        users_table.update_item(
+            Key={'username': user['username']},
+            UpdateExpression='SET email_verified = :verified REMOVE verification_token, token_expiry',
+            ExpressionAttributeValues={':verified': True}
+        )
+        
+        logger.info(f"Email verified for user: {user['username']}")
+        return {"message": "Email verified successfully", "username": user['username']}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Email verification failed: {e}")
+        raise HTTPException(status_code=500, detail="Verification failed")
+
+@router.post("/resend-verification")
+async def resend_verification_email(email: str):
+    """Resend verification email"""
+    try:
+        # Find user by email
+        response = users_table.scan(
+            FilterExpression=Attr('email').eq(email.lower())
+        )
+        
+        if not response['Items']:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        user = response['Items'][0]
+        
+        if user.get('email_verified', False):
+            raise HTTPException(status_code=400, detail="Email already verified")
+        
+        # Generate new token
+        verification_token = secrets.token_urlsafe(32)
+        token_expiry = datetime.utcnow() + timedelta(hours=24)
+        
+        # Update user with new token
+        users_table.update_item(
+            Key={'username': user['username']},
+            UpdateExpression='SET verification_token = :token, token_expiry = :expiry',
+            ExpressionAttributeValues={
+                ':token': verification_token,
+                ':expiry': token_expiry.isoformat()
+            }
+        )
+        
+        # Send new verification email
+        email_sent = await send_verification_email(user['email'], verification_token, user['username'])
+        
+        if email_sent:
+            return {"message": "Verification email sent"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to send verification email")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Resend verification failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to resend verification email")
+
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)

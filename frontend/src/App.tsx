@@ -25,6 +25,8 @@ const Donate = lazy(() => import('./components/donations/Donate'));
 const DonationSuccess = lazy(() => import('./components/donations/donation_success'));
 const AdminFitness = lazy(() => import('./components/admin/AdminFitness'));
 const Dashboard = lazy(() => import('./components/admin/Dashboard'));
+const EmailVerification = lazy(() => import('./components/EmailVerification'));
+const ResendVerification = lazy(() => import('./components/ResendVerification'));
 
 function App() {
   return (
@@ -59,6 +61,8 @@ function App() {
                   <Route path="/donate" element={<Donate />} />
                   <Route path="/donation-success" element={<DonationSuccess />} />
                   <Route path="/donation-success" element={<DonationSuccess />} />
+                  <Route path="/verify-email" element={<EmailVerification />} />
+                  <Route path="/resend-verification" element={<ResendVerification />} />
                   <Route element={<ProtectedRoute allowedRoles={["veteran", "admin"]} />}>
                     <Route path="/:username/feed" element={<Feed />} />
                     <Route path="/:username/chat" element={<Chat />} />
